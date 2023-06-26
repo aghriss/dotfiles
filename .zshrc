@@ -1,0 +1,54 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+
+
+# Put your fun stuff here.
+alias clean="sudo emerge -auv --depclean --changed-use"
+alias fw-ectool="ectool --interface=fwk"
+alias list_packages="equery list * -F '$category/$name'"
+alias lg="lazygit"
+alias unmerge="sudo emerge -a --unmerge"
+
+function service(){
+	if [[ $1 == "start" ]];	then
+		echo Starting $2 service
+		sudo rc-service $2 start
+	elif [[ $1 == "stop" ]]; then
+		echo Stopping $2 service
+		sudo rc-service $2 stop
+	elif [[ $1 == "restart" ]]; then
+		echo Restarting $2 service
+		sudo rc-service $2 restart
+	else
+		echo Undefined argument: $1
+	fi
+}
+
+# alias list_all_mods="find /lib/modules/6.1.28-gentoo-framework11 -type f -name '*.ko*'"
+# alias list_mods="cat /lib/modules/6.1.28-gentoo-framework11/modules.builtin"
+
+trim() {
+    local var="$*"
+    # remove leading whitespace characters
+    var="${var#"${var%%[![:space:]]*}"}"
+    # remove trailing whitespace characters
+    var="${var%"${var##*[![:space:]]}"}"
+    printf '%s' "$var"
+}
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+# 
+source ~/.config/zsh/manjaro-zsh-config
+source ~/.config/zsh/manjaro-zsh-prompt
+# header
+# source ~/.config/zsh/headerc
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# source ~/.config/zsh/manjaro-p10k.zsh
+source ~/.config/zsh/aghriss-p10k.zsh
+

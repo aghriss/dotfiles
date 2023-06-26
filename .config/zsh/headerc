@@ -1,0 +1,36 @@
+NONE='\033[00m'
+RED='\033[01;31m'
+GREEN='\033[01;32m'
+YELLOW='\033[01;33m'
+PURPLE='\033[01;35m'
+CYAN='\033[01;36m'
+WHITE='\033[01;37m'
+BOLD='\033[1m'
+UNDERLINE='\033[4m'
+BD=${RED}
+HR=${GREEN}
+SAY=${YELLOW}
+
+echo -e "                     ${BD}__          -„${NONE}"
+echo -e "                      ${BD}*-„¯¯*^~-„„_\*-„${NONE}"
+echo -e "                       ${BD}*-„${NONE}${HR}:::::${NONE}${BD}*-*${NONE}${HR}::${NONE}${BD}'*-„${NONE}"
+echo -e "                        ${BD}*-„${NONE}${HR}:::::::::::${NONE}${BD}'*-„${NONE}"
+echo -e "               ${BD}_„„„-~~~~^^*${NONE}${HR}:::::::::::::::${NONE}${BD})${NONE}"
+echo -e "            ${BD}„-^*${NONE}${HR}::::::::::::::::::::::::::${NONE}${BD}/${NONE}"
+echo -e "          ${BD}„-*${NONE}${HR}:::::::::::::::::${NONE}${BD}___„„„-„-^*¯${NONE}"
+echo -e "  ${BD}\*^~--„„-*${NONE}${HR}:::::::::${NONE}${BD}_„„„-~~^^¯${NONE}           \ "
+echo -e "   ${BD}" "\\" "${NONE}${HR}::::::::::::${NONE}${BD}-^*${NONE}        _„„-*„„-*¯¯**^-„"
+echo -e " ${BD}„-^*'${NONE}${HR}::::::::::${NONE}${BD}¯*^-${NONE}   „-^**¯   *-„   o |"
+echo -e " ${BD}¯*^~„${NONE}${HR}:::::::::${NONE}${BD}-^*¯${NONE}    |    o   |¯*^--~^**^-„"
+echo -e "     ${BD}|${NONE}${HR}::::::::::::${NONE}${BD}*-„${NONE}    \„_._„„„-     _„-'„"
+echo -e "      ${BD}" "\\" "${NONE}${HR}:::::::::::::${NONE}${BD}*-„${NONE}   ¯¯      *¯    *~-„„_"
+echo -e "       ${BD}*-„${NONE}${HR}::::„-~-„„:::${NONE}${BD}|${NONE}                      ¯) "
+echo -e "          ${BD}*~-„„_„/-~„${NONE}${HR}..${HR}${BD}*'${NONE}          __„„„„-~^**"
+echo -e "                \   *     „„-~^^'|**¯|¯''|¯"
+echo -e "                 ¯**^^\    *~'____'___~^**¯) ${SAY}Commands enabled!${NONE}"
+echo -e "                   „-'|               „-*"
+echo -e "                _„-*                 /;;*^-„"
+echo -e "\n"
+echo -e "\n"
+
+
