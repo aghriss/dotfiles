@@ -1,2 +1,9 @@
-# dotfiles
-dot files used
+## Config files
+
+#### Neovim: NvChad (for NvChad v2.0)
+
+`./NvChad` path should be mapped to `~/.config/nvim/lua/custom` after you install 
+[NvChad](nvchad.com)
+```bash
+ln -s ./NvChad ~/.config/nvim/lua/custom/
+```
