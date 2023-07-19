@@ -5,16 +5,16 @@ local g = vim.g
 -------------------------------------- options ------------------------------------------
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
-
+g.transparency = 0.0
 -- Indenting
 opt.expandtab = true
 opt.shiftwidth = 4
 opt.smartindent = true
 opt.tabstop = 4
 opt.softtabstop = 4
-
 opt.colorcolumn = "84"
-
+-- which mode mouse is enabled
+opt.mouse = "v"
 -- Numbers
 opt.number = true
 opt.numberwidth = 2
@@ -40,8 +40,7 @@ if g.neovide then
 		return string.format("%x", math.floor((255 * g.transparency) or 0.8))
 	end
 	-- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
-	g.neovide_transparency = 0.0
-	g.transparency = 0.0
+	g.neovide_transparency = 1.0
 	g.neovide_background_color = ("#0f1117" .. alpha())
 	-- hide mouse when typing
 	g.neovide_hide_mouse_when_typing = true

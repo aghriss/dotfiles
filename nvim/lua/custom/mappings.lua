@@ -21,10 +21,10 @@ M.general = {
 		-- ["<C-i>"] = { "<C-w>i", "Window right" },
 		-- ["<C-n>"] = { "<C-w>n", "Window down" },
 		["<C-e>"] = { "<C-w>e", "Window up" },
+		["<leader>tc"] = { ":tabnew<CR>", "Create tab" },
 		["<leader>te"] = { ":tabnext<CR>", "Next tab" },
-		["<leader>tn"] = { ":tabprev<CR>", "Previous tab" },
-		["<leader>tc"] = { ":tabnew<CR>", "Previous tab" },
 		["<leader>tm"] = { ":tabfirst<CR>", "First tab" },
+		["<leader>tn"] = { ":tabprev<CR>", "Previous tab" },
 		["<leader>ti"] = { ":tablast<CR>", "Last tab" },
 
 		-- save
@@ -442,9 +442,27 @@ M.telescope = {
 		["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
 	},
 }
+M.dap = {
+	plugin = true,
+	n = {
+		["<leader>db"] = { "<cmd> DapToggleBreakpoint <CR>", "DAP Breakpoint" },
+	},
+}
+
+M.dap_python = {
+	plugin = true,
+	n = {
+		["<leader>dpr"] = {
+			function()
+				require("dap-python").test_method()
+			end,
+			"DAP Python test method",
+		},
+	},
+}
 
 M.vimtex = {
-    plugin = true,
+	plugin = true,
 	n = {
 		["<leader>ll"] = { "<cmd>VimtexCompile<CR>", "Compile Tex" },
 	},

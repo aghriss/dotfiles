@@ -1,11 +1,10 @@
--- vim.g.nvim_tree_respect_buf_cwd=1
 local options = {
 	filters = {
 		dotfiles = false,
 		exclude = { vim.fn.stdpath("config") .. "/lua/custom" },
 	},
-	respect_buf_cwd = true,
-	reload_on_bufenter = true,
+	respect_buf_cwd = false,
+	reload_on_bufenter = false,
 	disable_netrw = true,
 	hijack_netrw = true,
 	hijack_cursor = true,
@@ -13,7 +12,7 @@ local options = {
 	sync_root_with_cwd = true,
 	update_focused_file = {
 		enable = true,
-		update_root = true,
+		update_root = false,
 	},
 	view = {
 		adaptive_size = true,
@@ -81,7 +80,13 @@ local function my_on_attach(bufnr)
 	local api = require("nvim-tree.api")
 
 	local function opts(desc)
-		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+		return {
+			desc = "nvim-tree: " .. desc,
+			buffer = bufnr,
+			noremap = true,
+			silent = true,
+			nowait = true,
+		}
 	end
 
 	-- default mappings
@@ -116,8 +121,8 @@ local function my_on_attach(bufnr)
 	-- vim.keymap.set("n", "C", api.tree.toggle_git_clean_filter, opts("Toggle Filter: Git Clean"))
 	-- vim.keymap.set("n", "[c", api.node.navigate.git.prev, opts("Prev Git"))
 	-- vim.keymap.set("n", "]c", api.node.navigate.git.next, opts("Next Git"))
-	vim.keymap.set("n", "d", api.fs.remove, opts("Delete"))
-	-- vim.keymap.set("n", "D", api.fs.trash, opts("Trash"))
+	-- vim.keymap.set("n", "d", api.fs.remove, opts("Delete"))
+	vim.keymap.set("n", "D", api.fs.trash, opts("Trash"))
 	-- vim.keymap.set("n", "E", api.tree.expand_all, opts("Expand All"))
 	-- vim.keymap.set("n", "e", api.fs.rename_basename, opts("Rename: Basename"))
 	-- vim.keymap.set("n", "]e", api.node.navigate.diagnostics.next, opts("Next Diagnostic"))

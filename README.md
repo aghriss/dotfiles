@@ -7,3 +7,8 @@
 ```bash
 ln -s ./NvChad ~/.config/nvim/lua/custom/
 ```
+
+### Z shell Config
+
+- `./zshell/zsh` -> `~/.config/zsh`
+- `./zshell/zshrc` -> `~/.zshrc`
