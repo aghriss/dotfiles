@@ -1,6 +1,41 @@
 local M = {}
 local merge_tb = vim.tbl_deep_extend
 
+M.echo = function(str)
+  vim.cmd "redraw"
+  vim.api.nvim_echo({ { str, "Bold" } }, true, {})
+end
+
+local function shell_call(args)
+  local output = vim.fn.system(args)
+  assert(vim.v.shell_error == 0, "External call failed with error code: " .. vim.v.shell_error .. "\n" .. output)
+end
+
+M.lazy = function(install_path)
+  ------------- base46 ---------------
+  local lazy_path = vim.fn.stdpath "data" .. "/lazy/base46"
+
+  M.echo "  Compiling base46 theme to bytecode ..."
+
+  local base46_repo = "https://github.com/NvChad/base46"
+  shell_call { "git", "clone", "--depth", "1", "-b", "v2.0", base46_repo, lazy_path }
+  vim.opt.rtp:prepend(lazy_path)
+
+  require("base46").compile()
+
+  --------- lazy.nvim ---------------
+  M.echo "  Installing lazy.nvim & plugins ..."
+  local repo = "https://github.com/folke/lazy.nvim.git"
+  shell_call { "git", "clone", "--filter=blob:none", "--branch=stable", repo, install_path }
+  vim.opt.rtp:prepend(install_path)
+
+  -- install plugins
+  require "plugins"
+
+  -- mason packages & show post_boostrap screen
+  require "nvchad.post_bootstrap"()
+end
+
 M.load_config = function()
   local config = require "core.default_config"
   local chadrc_path = vim.api.nvim_get_runtime_file("lua/custom/chadrc.lua", false)[1]
@@ -14,41 +49,6 @@ M.load_config = function()
   end
 
   return config
-end
-
-M.remove_disabled_keys = function(chadrc_mappings, default_mappings)
-  if not chadrc_mappings then
-    return default_mappings
-  end
-
-  -- store keys in a array with true value to compare
-  local keys_to_disable = {}
-  for _, mappings in pairs(chadrc_mappings) do
-    for mode, section_keys in pairs(mappings) do
-      if not keys_to_disable[mode] then
-        keys_to_disable[mode] = {}
-      end
-      section_keys = (type(section_keys) == "table" and section_keys) or {}
-      for k, _ in pairs(section_keys) do
-        keys_to_disable[mode][k] = true
-      end
-    end
-  end
-
-  -- make a copy as we need to modify default_mappings
-  for section_name, section_mappings in pairs(default_mappings) do
-    for mode, mode_mappings in pairs(section_mappings) do
-      mode_mappings = (type(mode_mappings) == "table" and mode_mappings) or {}
-      for k, _ in pairs(mode_mappings) do
-        -- if key if found then remove from default_mappings
-        if keys_to_disable[mode] and keys_to_disable[mode][k] then
-          default_mappings[section_name][mode][k] = nil
-        end
-      end
-    end
-  end
-
-  return default_mappings
 end
 
 M.load_mappings = function(section, mapping_opt)
@@ -74,7 +74,7 @@ M.load_mappings = function(section, mapping_opt)
       end
     end
 
-    local mappings = require("core.utils").load_config().mappings
+    local mappings = require("utils").load_config().mappings
 
     if type(section) == "string" then
       mappings[section]["plugin"] = nil
