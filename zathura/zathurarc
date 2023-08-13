@@ -1,0 +1,25 @@
+
+set selection-clipboard clipboard
+set scroll-step 100
+# set recolor true
+set recolor-darkcolor "#ded2ba"
+set recolor-lightcolor "#111123"
+set default-bg \#222230
+unmap n
+unmap e
+unmap m
+unmap i
+unmap l
+unmap u
+
+
+map n scroll down
+map e scroll up
+map m scroll left
+map i scroll right
+map u navigate previous
+map l navigate next
+
+map <C-i> zoom in
+map <C-m> zoom out
+map I recolor
