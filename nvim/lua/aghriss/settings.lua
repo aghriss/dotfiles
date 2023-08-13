@@ -4,7 +4,7 @@ local g = vim.g
 -- local api = vim.api
 local config = require("aghriss.configs")
 -------------------------------------- globals -----------------------------------------
-g.nvchad_theme = config.ui.theme
+-- g.nvchad_theme = config.ui.theme
 g.cheatsheet_displayed = false
 g.transparency = config.ui.transparency
 g.mapleader = " "

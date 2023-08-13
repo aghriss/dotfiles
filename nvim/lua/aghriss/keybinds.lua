@@ -27,6 +27,9 @@ map("x", "T", "I", opts)
 map("o", "t", "i", opts)
 map("o", "T", "I", opts)
 
+map("n", "l", "m", opts)
+map("x", "l", "m", opts)
+map("o", "l", "m", opts)
 -- Undo/redo
 -- map("n", "l", "u", opts)
 -- map("x", "l", ":<C-U>undo<CR>", opts)
