@@ -9,7 +9,7 @@ local options = {
 		-- E:python
 		"rust-analyzer",
 		"lua-language-server",
-		"tailwind-language-server",
+		"tailwindcss-language-server",
 		"ltex-ls",
 		"bash-language-server",
 	}, -- not an option from mason.nvim

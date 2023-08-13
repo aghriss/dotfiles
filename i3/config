@@ -1,6 +1,6 @@
 default_border pixel 0
-gaps inner 0
-gaps outer 2
+gaps inner 5
+gaps outer 5
 
 # gap from the edges
 gaps horizontal 1
@@ -12,7 +12,7 @@ for_window [class="^.*"] border pixel 0
 # add focus border around windows
 for_window [class="^.*"] border pixel 1
 #c.? 			# ?	# ?	# ?	# ?	  # active border
-client.focused          #00ff00 #285577 #ffffff #2e9ef4   #99eeaa
+client.focused          #00ff00 #285577 #ffffff #2e9ef4 #669966
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -87,7 +87,7 @@ floating_modifier $mod
 bindsym $meta+Return exec alacritty
 bindsym $meta+b exec firefox
 bindsym $meta+z exec zathura
-bindsym $meta+t exec /home/aghriss/.cargo/bin/neovide
+bindsym $meta+t exec neovide
 
 # kill focused window
 bindsym $mod+Shift+q kill

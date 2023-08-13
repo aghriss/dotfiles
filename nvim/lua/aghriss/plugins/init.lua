@@ -201,12 +201,19 @@ local plugins = {
     cmd = {
       "Mason",
       -- "MasonInstall",
-      -- "MasonInstallAll",
+      "MasonInstallAll",
       -- "MasonUninstall",
       -- "MasonUninstallAll",
       "MasonLog",
     },
     opts = get_opts("aghriss.plugins.options.mason"),
+
+    config = function(_,opts)
+      require("mason").setup(opts)
+      vim.api.nvim_create_user_command("MasonInstallAll", function()
+      vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+      end, {})
+    end
   },
 
   {
@@ -364,7 +371,7 @@ local plugins = {
     -- opts = { load_commands = false },
     -- opts = {},
     lazy = false,
-    dev = true,
+    -- dev = true,
   },
 }
 

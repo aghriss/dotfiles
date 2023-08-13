@@ -473,10 +473,10 @@ M.whichkey = {
 M.move = {
   plugin = true,
   v = {
-    ["<A-n>"] = { ":MoveBlock(1)<CR>", "Move" },
-    ["<A-e>"] = { ":MoveBlock(-1)<CR>", "Move" },
-    ["<A-m>"] = { ":MoveHBlock(-1)<CR>", "Move" },
-    ["<A-i>"] = { ":MoveHBlock(1)<CR>", "Move" },
+    ["<C-n>"] = { ":MoveBlock(1)<CR>", "Move" },
+    ["<C-e>"] = { ":MoveBlock(-1)<CR>", "Move" },
+    ["<C-m>"] = { ":MoveHBlock(-1)<CR>", "Move" },
+    ["<C-i>"] = { ":MoveHBlock(1)<CR>", "Move" },
   },
 }
 

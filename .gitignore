@@ -22,4 +22,4 @@ rad.json
 TestResults.xml
 # lazy files
 lazy-lock.json
-tmux/plugins/**/*.*
+tmux/plugins/
