@@ -12,3 +12,8 @@ ln -s ./NvChad ~/.config/nvim/lua/custom/
 
 - `./zshell/zsh` -> `~/.config/zsh`
 - `./zshell/zshrc` -> `~/.zshrc`
+
+### tmux
+
+Install Tmux TPM to ~/.config/tmux/plugins/tpm
+
