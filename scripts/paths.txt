@@ -1,1 +1,2 @@
-./hibernate.sh > /lib64/elogind/system-sleep/hibernate.sh
+hibernate.sh -> /lib64/elogind/system-sleep
+plasma-i3.desktop -> /usr/share/xsessions

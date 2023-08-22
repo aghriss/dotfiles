@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=i3 Plasma
+Comment=KDE with i3
+Exec=env KDEWM=/usr/bin/i3 /usr/bin/startplasma-x11
+TryExec=/usr/local/sbin/kde-i3
+Type=Application
+X-LightDM-DesktopName=i3-Plasma
+DesktopNames=i3-Plasma
+Keywords=tiling;wm;windowmanager;window;manager;kde;
+

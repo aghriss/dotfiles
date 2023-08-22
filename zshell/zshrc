@@ -8,10 +8,8 @@
 
 # Put your fun stuff here.
 alias clean="sudo emerge -auv --depclean --changed-use"
-alias fw-ectool="ectool --interface=fwk"
-alias list_packages="equery list * -F '$category/$name'"
 alias lg="lazygit"
-alias unmerge="sudo emerge -a --unmerge"
+alias unmerge="sudo emerge -aC"
 
 function service(){
 	if [[ $1 == "start" ]];	then
