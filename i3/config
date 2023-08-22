@@ -37,7 +37,7 @@ exec --no-startup-id dex --autostart --environment i3
   for_window [title="Desktop @ QRect.*"] kill; floating enable; border none
 
   # Compositor (Animations, Shadows, Transparency)
-  exec --no-startup-id picom -cCFb --config /home/aghriss/.config/picom.conf
+  exec --no-startup-id picom -cCFb --config ~/.config/picom.conf
   # start polybar 
   exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 
