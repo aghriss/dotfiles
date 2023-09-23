@@ -1,5 +1,7 @@
 local get_opts = function(path)
-  local f = function() return require(path) end
+  local f = function()
+    return require(path)
+  end
   return f
 end
 
@@ -10,7 +12,9 @@ local plugins = {
     lazy = false,
     dir = vim.fn.stdpath("data") .. "/lazy/lazy.nvim",
     version = "10.0.2",
-    init = function() require("aghriss.utils").load_mappings("lazy") end,
+    init = function()
+      require("aghriss.utils").load_mappings("lazy")
+    end,
   },
   { "nvim-lua/plenary.nvim" }, -- used by other plugins for implementation
   {
@@ -38,14 +42,18 @@ local plugins = {
     -- dev = true,
     -- -- lazy = true,
     lazy = false,
-    init = function() require("aghriss.utils").load_mappings("tabufline") end,
+    init = function()
+      require("aghriss.utils").load_mappings("tabufline")
+    end,
     opts = get_opts("aghriss.plugins.options.tabufline"),
   },
 
   -- Tools
   {
     "NvChad/nvterm",
-    init = function() require("aghriss.utils").load_mappings("nvterm") end,
+    init = function()
+      require("aghriss.utils").load_mappings("nvterm")
+    end,
     config = function(_, opts)
       require("base46.term")
       require("nvterm").setup(opts)
@@ -56,11 +64,15 @@ local plugins = {
   {
     "NvChad/nvim-colorizer.lua",
     lazy = false,
-    init = function() require("aghriss.utils").lazy_load("nvim-colorizer.lua") end,
+    init = function()
+      require("aghriss.utils").lazy_load("nvim-colorizer.lua")
+    end,
     config = function(_, opts)
       require("colorizer").setup(opts)
       -- execute colorizer as soon as possible
-      vim.defer_fn(function() require("colorizer").attach_to_buffer(0) end, 0)
+      vim.defer_fn(function()
+        require("colorizer").attach_to_buffer(0)
+      end, 0)
     end,
   },
 
@@ -79,7 +91,9 @@ local plugins = {
     "nvim-tree/nvim-tree.lua",
     lazy = false,
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    init = function() require("aghriss.utils").load_mappings("nvimtree") end,
+    init = function()
+      require("aghriss.utils").load_mappings("nvimtree")
+    end,
     opts = get_opts("aghriss.plugins.options.nvimtree"),
     -- config = function(_, opts)
     -- require("base46").load_highlights("nvimtree")
@@ -91,7 +105,10 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     -- dependencies = { "base46" },
-    init = function() require("aghriss.utils").lazy_load("nvim-treesitter") end,
+    init = function()
+      require("aghriss.utils").lazy_load("nvim-treesitter")
+    end,
+    lazy = false,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = get_opts("aghriss.plugins.options.treesitter"),
@@ -129,13 +146,11 @@ local plugins = {
           )
           if vim.v.shell_error == 0 then
             vim.api.nvim_del_augroup_by_name("GitSignsLazyLoad")
-            vim.schedule(
-              function()
-                require("lazy").load({
-                  plugins = { "gitsigns.nvim" },
-                })
-              end
-            )
+            vim.schedule(function()
+              require("lazy").load({
+                plugins = { "gitsigns.nvim" },
+              })
+            end)
           end
         end,
       })
@@ -150,7 +165,9 @@ local plugins = {
   {
     "mbbill/undotree",
     lazy = false,
-    init = function() require("aghriss.utils").load_mappings("undotree") end,
+    init = function()
+      require("aghriss.utils").load_mappings("undotree")
+    end,
   },
 
   {
@@ -175,7 +192,9 @@ local plugins = {
     "folke/which-key.nvim",
     -- lazy = false,
     keys = { "<leader>", '"', "'", "`", "c", "v", "g" },
-    init = function() require("aghriss.utils").load_mappings("whichkey") end,
+    init = function()
+      require("aghriss.utils").load_mappings("whichkey")
+    end,
     config = function(_, opts)
       require("base46").load_highlights("whichkey")
       require("which-key").setup(opts)
@@ -191,8 +210,13 @@ local plugins = {
     dependencies = {
       "jose-elias-alvarez/null-ls.nvim",
     },
-    config = function() require("aghriss.plugins.configs.lspconfig") end,
-    init = function() require("aghriss.utils").lazy_load("nvim-lspconfig") end,
+    config = function()
+      require("aghriss.plugins.configs.lspconfig")
+      require("aghriss.utils").load_mappings("lspconfig")
+    end,
+    init = function()
+      require("aghriss.utils").lazy_load("nvim-lspconfig")
+    end,
   },
 
   {
@@ -208,22 +232,26 @@ local plugins = {
     },
     opts = get_opts("aghriss.plugins.options.mason"),
 
-    config = function(_,opts)
+    config = function(_, opts)
       require("mason").setup(opts)
       vim.api.nvim_create_user_command("MasonInstallAll", function()
-      vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
       end, {})
-    end
+    end,
   },
 
   {
     "NvChad/nvim-colorizer.lua",
-    init = function() require("aghriss.utils").lazy_load("nvim-colorizer.lua") end,
+    init = function()
+      require("aghriss.utils").lazy_load("nvim-colorizer.lua")
+    end,
     opts = get_opts("aghriss.plugins.options.colorizers"),
     config = function(_, opts)
       require("colorizer").setup(opts)
       -- execute colorizer as soon as possible
-      vim.defer_fn(function() require("colorizer").attach_to_buffer(0) end, 0)
+      vim.defer_fn(function()
+        require("colorizer").attach_to_buffer(0)
+      end, 0)
     end,
   },
 
@@ -278,11 +306,15 @@ local plugins = {
       { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
     },
-    init = function() require("aghriss.utils").load_mappings("comment") end,
+    init = function()
+      require("aghriss.utils").load_mappings("comment")
+    end,
   },
   {
     "lervag/vimtex",
-    init = function() require("aghriss.utils").load_mappings("vimtex") end,
+    init = function()
+      require("aghriss.utils").load_mappings("vimtex")
+    end,
     config = function()
       vim.g.vimtex_quickfix_enabled = 1
       vim.g.vimtex_syntax_enabled = 1
@@ -305,18 +337,34 @@ local plugins = {
     lazy = "true",
   },
   {
+    "nvim-telescope/telescope-bibtex.nvim",
+    dir = "/home/repo/plugins/telescope-bibtex.nvim",
+    dev = true,
+    ft = "tex",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("telescope").load_extension("bibtex")
+    end,
+  },
+  {
     "iamcco/markdown-preview.nvim",
     ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
-    init = function() require("aghriss.utils").load_mappings("markdown") end,
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+    init = function()
+      require("aghriss.utils").load_mappings("markdown")
+    end,
     config = function()
       vim.g.mkdp_browser = "chromium"
-      vim.g.mkdp_theme = "light"
+      vim.g.mkdp_theme = "dark"
     end,
   },
   {
     "mfussenegger/nvim-dap",
-    init = function() require("aghriss.utils").load_mappings("dap") end,
+    init = function()
+      require("aghriss.utils").load_mappings("dap")
+    end,
   },
   {
     "mfussenegger/nvim-dap-python",
@@ -346,17 +394,20 @@ local plugins = {
       dap.listeners.before.event_terminated["dapui_config"] = function()
         dapui.close()
       end
-      dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
     end,
   },
   {
     "nvim-orgmode/orgmode",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     lazy = false,
-    ft = { "org" },
+    -- ft = { "org" },
     opts = get_opts("aghriss.plugins.options.org"),
     config = function(_, opts)
-      require("orgmode").setup_ts_grammar()
       require("orgmode").setup(opts)
+      require("orgmode").setup_ts_grammar()
     end,
   },
   {
@@ -367,11 +418,42 @@ local plugins = {
   },
   {
     "aghriss/move.nvim",
-    init = function() require("aghriss.utils").load_mappings("move") end,
+    init = function()
+      require("aghriss.utils").load_mappings("move")
+    end,
     -- opts = { load_commands = false },
     -- opts = {},
     lazy = false,
     -- dev = true,
+  },
+
+  -- {
+  --   "aghriss/telescope-test.nvim",
+  --   dev = true,
+  --   dir = "/home/aghriss/scratch/telescope-test.nvim/",
+  --   lazy = false,
+  -- },
+  {
+    "narutoxy/dim.lua",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+    config = function()
+      require("dim").setup({})
+    end,
+  },
+  -- {
+  -- "ggandor/leap.nvim",
+  -- dependencies = { "tpope/vim-repeat" },
+  -- lazy = false,
+  -- },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end,
   },
 }
 

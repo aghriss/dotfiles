@@ -12,6 +12,7 @@ local options = {
 		"tailwindcss-language-server",
 		"ltex-ls",
 		"bash-language-server",
+    "prettier", -- yaml
 	}, -- not an option from mason.nvim
 
 	PATH = "skip",

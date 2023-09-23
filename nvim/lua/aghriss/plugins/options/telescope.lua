@@ -50,6 +50,9 @@ local options = {
   },
 
   extensions_list = { "themes", "terms" },
+  extensions = {
+    bibtex = {
+    },
+  },
 }
-
 return options

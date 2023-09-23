@@ -1,4 +1,4 @@
-
+set font "inconsolata 12"
 set selection-clipboard clipboard
 set scroll-step 100
 # set recolor true

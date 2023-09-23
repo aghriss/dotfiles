@@ -16,7 +16,7 @@ opt.showmode = false
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
 -- opt.cmdheight = 0
--- g.transparency = 0.0
+g.transparency = 1.0
 
 -- Indenting
 opt.expandtab = true
@@ -47,7 +47,7 @@ opt.signcolumn = "auto"
 opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
-opt.scrolloff = 8
+opt.scrolloff = 20
 -- timeout when pressing leader key before showing which-key menu
 opt.timeoutlen = 700
 
@@ -65,6 +65,7 @@ if g.neovide then
 	-- Put anything you want to happen only in Neovide her
 	vim.o.guifont = "JetBrainsMono Nerd Font:h12"
 	opt.linespace = 0
+  g.neovide_refresh_rate = 120
 	g.neovide_scale_factor = 1.0
 	g.neovide_padding_top = 0
 	g.neovide_padding_bottom = 0
@@ -76,17 +77,17 @@ if g.neovide then
 	end
 	-- g:neovide_transparency should be 0 if you want to unify transparency of
 	-- content and title bar.
-	-- g.neovide_transparency = 1.0
+	g.neovide_transparency = 0.8
 	-- g.neovide_background_color = ("#0f1117" .. alpha())
 	-- hide mouse when typing
 	g.neovide_hide_mouse_when_typing = true
 	-- VFX Effects: railgun, torpedo, pixiedust, sonicboom, ripple, wireframe
-	g.neovide_cursor_vfx_mode = "ripple"
-	g.neovide_cursor_vfx_particle_speed = 10.0
-	g.neovide_cursor_vfx_opacity = 200.0
+	g.neovide_cursor_vfx_mode = "torpedo"
+	g.neovide_cursor_vfx_particle_speed = 1.0
+	g.neovide_cursor_vfx_opacity = 0.1
 
-	g.neovide_cursor_vfx_particle_density = 7.0
-	g.neovide_cursor_vfx_particle_lifetime = 1.5
+	g.neovide_cursor_vfx_particle_density = 1.0
+	g.neovide_cursor_vfx_particle_lifetime = 0.1
 	g.neovide_cursor_vfx_particle_phase = 10.5 -- only for railgun
 	g.neovide_cursor_vfx_particle_curl = 10.0 -- only for railgun
 end
@@ -98,7 +99,7 @@ vim.opt.guicursor = {
 	"i-ci:ver25-Cursor/lCursor-blinkwait200-blinkon350-blinkoff200",
 	"r:hor50-Cursor/lCursor-blinkwait100-blinkon150-blinkoff150",
 }
--------------------------------------- options ------------------------------------------
+----------------------------- options ------------------------------------------
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
 	vim.g["loaded_" .. provider .. "_provider"] = 0
@@ -107,7 +108,7 @@ end
 -- add binaries installed by mason.nvim to path
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. ":" .. vim.env.PATH
 vim.env.PATH = vim.env.HOME .. "/.local/bin" .. ":" .. vim.env.PATH
--------------------------------------- autocmds ------------------------------------------
+---------------------------- autocmds ------------------------------------------
 -- local autocmd = vim.api.nvim_create_autocmd
 
 -- dont list quickfix buffers

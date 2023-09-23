@@ -1,0 +1,60 @@
+INFO:  latexindent version 3.22.2, 2023-07-14, a script to indent .tex files
+       latexindent lives here: /usr/local/texlive/2023/texmf-dist/scripts/latexindent/
+       Thu Aug 24 18:04:22 2023
+       Reading input from STDIN
+INFO:  Processing switches:
+       -l|--localSettings: Read localSettings YAML file
+       -m|--modifylinebreaks: modify line breaks
+INFO:  Directory for backup files and indent.log:
+       .
+INFO:  YAML settings read: defaultSettings.yaml
+       Reading defaultSettings.yaml from /usr/local/texlive/2023/texmf-dist/scripts/latexindent/defaultSettings.yaml
+INFO:  YAML reading settings
+       Home directory is /home/aghriss
+       latexindent.pl didn't find indentconfig.yaml or .indentconfig.yaml
+       see all possible locations: https://latexindentpl.readthedocs.io/en/latest/sec-appendices.html#indentconfig-options)
+INFO:  YAML settings read: -l switch
+       Adding /home/aghriss/.config/nvim/lua/aghriss/assets/lsp/latexindent.yaml to YAML read paths
+INFO:  YAML settings, reading from the following files:
+       Reading USER settings from /home/aghriss/.config/nvim/lua/aghriss/assets/lsp/latexindent.yaml
+       ---
+       modifyLineBreaks:
+         condenseMultipleBlankLinesInto: '1'
+         preserveBlankLines: '1'
+         textWrapOptions:
+           blocksBeginWith:
+             0-9: '0'
+             A-Z: '1'
+             a-z: '1'
+             other: '0'
+           blocksEndBefore:
+             commentOnOwnLine: '1'
+             filecontents: '1'
+             verbatim: '1'
+           blocksFollow:
+             blankLine: '1'
+             commentOnPreviousLine: '1'
+             filecontents: '1'
+             headings: '1'
+             other: \\\]|\\item(?:\h|\[)
+             par: '1'
+             verbatim: '1'
+           columns: '84'
+           comments:
+             inheritLeadingSpace: '0'
+             wrap: '0'
+           huge: overflow
+           multipleSpacesToSingle: '1'
+           removeBlockLineBreaks: '1'
+           separator: ''
+           when: after
+
+INFO:  Phase 1: searching for objects
+INFO:  Phase 2: finding surrounding indentation
+INFO:  Phase 3: indenting objects
+INFO:  Phase 4: final indentation check
+INFO:  Output routine:
+       Not outputting to file; see -w and -o switches for more options.
+       --------------
+INFO:  Please direct all communication/issues to:
+        https://github.com/cmhughes/latexindent.pl

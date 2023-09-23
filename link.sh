@@ -13,7 +13,7 @@ case $CFG in
         trg=("$HOME/.config/i3")
     ;;
     ideavim)
-        src=("$SCRIPT_DIR/ideavim")
+        src=("$SCRIPT_DIR/ideavimrc")
         trg=("$HOME/.ideavimrc")
     ;;
     neovim)

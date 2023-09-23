@@ -10,6 +10,7 @@
 alias clean="sudo emerge -auv --depclean --changed-use"
 alias lg="lazygit"
 alias unmerge="sudo emerge -aC"
+alias startvirt="virt-manager --connect qemu:///system"
 
 function service(){
 	if [[ $1 == "start" ]];	then
@@ -49,4 +50,6 @@ source ~/.config/zsh/manjaro-zsh-prompt
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # source ~/.config/zsh/manjaro-p10k.zsh
 source ~/.config/zsh/aghriss-p10k.zsh
+
+source ~/.config/zsh/hashes.sh
 

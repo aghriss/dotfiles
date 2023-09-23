@@ -1,30 +1,22 @@
-" .ideavimrc is a configuration file for IdeaVim plugin. It uses
-"   the same commands as the original .vimrc configuration.
-" You can find a list of commands here: https://jb.gg/h38q75
-" Find more examples here: https://jb.gg/share-ideavimrc
-
-" source ~/.config/vim/vimrc
-" set runtimepath+=/home/aghriss/.config/vim,/home/aghriss/.config/vim/after
-" let g:python_host_prog = '/usr/bin/python'
-" let g:python3_host_prog = '/usr/bin/python'
-" py3 sys.path.append('/usr/lib/python3.11/site-packages')
 filetype plugin indent on
+syntax enable
 let mapleader=" "
 set incsearch
 set scrolloff=5
 " set ttimeout
 set ttimeoutlen=10
 set ttyfast
-syntax enable
 
-
+vmap <leader>rs "0y:s/<C-r>0//g<Left><Left>
 map <C--> <Action>(EditorDecreaseFontSize)
 map <C-=> <Action>(EditorIncreaseFontSize)
+" map <C-w> <Action>(CloseActiveTab)
 map Q gq
-nmap <Tab> <Action>(NextTab)
-nmap <Tab> <Action>(NextTab)
+nmap <C-Tab> <Action>(NextTab)
+" map <S-Tab> <Action>(PreviousTab)
 nmap <leader>/ <Action>(CommentByLineComment)
 nmap <leader>r <Action>(ReformatCode)
+nmap <leader>td <Action>(ActivateTODOToolWindow) 
 nnoremap " N|
 nnoremap ' n|
 nnoremap T I|
@@ -36,46 +28,9 @@ nnoremap m h|xnoremap m h|onoremap m h|
 nnoremap n j|xnoremap n j|onoremap n j|
 nnoremap t i|
 nnoremap z u|
-vmap <A-e> :m'<-2<CR>gv=ggvv
+vmap <A-e> :m'<-2<CR>gv=gv
 vmap <A-n> :m'>+1<CR>gv=gv
 vmap <leader>P "*P
 vmap <leader>p "*p
 vmap <leader>y "*y
 xnoremap p pgvy
-
-
-"map \b <Action>(ToggleLineBreakpoint)
-" call plug#begin('/home/aghriss/.config/vim/plugged')
-" Plug 'preservim/nerdtree'
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
-" Plug 'terryma/vim-multiple-cursors'
-" call plug#end()
-
-
-" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
-" nmap <C-s> <Plug>NextWholeOccurrence
-" xmap <C-s> <Plug>NextWholeOccurrence
-" " nmap g<C-n> <Plug>NextOccurrence
-" " xmap g<C-n> <Plug>NextOccurrence
-" nmap <C-x> <Plug>SkipOccurrence
-" xmap <C-x> <Plug>SkipOccurrence
-" nmap <C-p> <Plug>RemoveOccurrence
-" xmap <C-p> <Plug>RemoveOccurrence
-" Default mapping
-" let g:multi_cursor_use_default_mapping = 0
-" let g:multi_cursor_start_word_key      = '<C-s>'
-" let g:multi_cursor_select_all_word_key = '<A-n>'
-" let g:multi_cursor_start_key           = 'g<C-n>'
-" let g:multi_cursor_select_all_key      = 'g<A-n>'
-" let g:multi_cursor_next_key            = '<C-s>'
-" let g:multi_cursor_prev_key            = '<C-p>'
-" let g:multi_cursor_skip_key            = '<C-x>'
-" let g:multi_cursor_quit_key            = '<Esc>'
-
-" NERDTree
-" nmap <leader>t :NERDTreeToggle<cr>
-" nmap <leader>n :NERDTree<cr>
-" let NERDTreeMenuUp='e'
-" let NERDTreeMenuDown='n'
-" let NERDTreeMapOpenExpl='j'
