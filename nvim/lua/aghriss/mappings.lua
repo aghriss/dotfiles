@@ -46,7 +46,6 @@ M.general = {
     ["L"] = { "mzJ`z", "Merge lines" },
     -- turn on spell checker - ]s and [s to move, z= for suggestions
   },
-
   -- ["<leader>ls"] = { ":FixWhitespace<CR>", "" },
   -- new buffer
   -- ["<leader>b"] = { "<cmd> enew <CR>", "New buffer" },
@@ -157,8 +156,12 @@ M.gitsigns = {
     -- Navigation through hunks
     ["]c"] = {
       function()
-        if vim.wo.diff then return "]c" end
-        vim.schedule(function() require("gitsigns").next_hunk() end)
+        if vim.wo.diff then
+          return "]c"
+        end
+        vim.schedule(function()
+          require("gitsigns").next_hunk()
+        end)
         return "<Ignore>"
       end,
       "Jump to next hunk",
@@ -167,8 +170,12 @@ M.gitsigns = {
 
     ["[c"] = {
       function()
-        if vim.wo.diff then return "[c" end
-        vim.schedule(function() require("gitsigns").prev_hunk() end)
+        if vim.wo.diff then
+          return "[c"
+        end
+        vim.schedule(function()
+          require("gitsigns").prev_hunk()
+        end)
         return "<Ignore>"
       end,
       "Jump to prev hunk",
@@ -177,22 +184,30 @@ M.gitsigns = {
 
     -- Actions
     ["<leader>rh"] = {
-      function() require("gitsigns").reset_hunk() end,
+      function()
+        require("gitsigns").reset_hunk()
+      end,
       "Reset hunk",
     },
 
     ["<leader>ph"] = {
-      function() require("gitsigns").preview_hunk() end,
+      function()
+        require("gitsigns").preview_hunk()
+      end,
       "Preview hunk",
     },
 
     ["<leader>gb"] = {
-      function() package.loaded.gitsigns.blame_line() end,
+      function()
+        package.loaded.gitsigns.blame_line()
+      end,
       "Blame line",
     },
 
     ["<leader>td"] = {
-      function() require("gitsigns").toggle_deleted() end,
+      function()
+        require("gitsigns").toggle_deleted()
+      end,
       "Toggle deleted",
     },
   },
@@ -204,26 +219,36 @@ M.tabufline = {
   n = {
     -- cycle through buffers
     ["<tab>"] = {
-      function() require("tabufline.controls").next_buffer() end,
+      function()
+        require("tabufline.controls").next_buffer()
+      end,
       "Goto next buffer",
     },
 
     ["<S-tab>"] = {
-      function() require("tabufline.controls").prev_buffer() end,
+      function()
+        require("tabufline.controls").prev_buffer()
+      end,
       "Goto prev buffer",
     },
     --
     -- close buffer + hide terminal buffer
     ["<leader>xx"] = {
-      function() require("tabufline.controls").close_curbuf() end,
+      function()
+        require("tabufline.controls").close_curbuf()
+      end,
       "Close buffer",
     },
     ["<leader>xa"] = {
-      function() require("tabufline.controls").close_all_bufs() end,
+      function()
+        require("tabufline.controls").close_all_bufs()
+      end,
       "Close all buffers",
     },
     ["<leader>xo"] = {
-      function() require("tabufline.controls").close_other_bufs() end,
+      function()
+        require("tabufline.controls").close_other_bufs()
+      end,
       "Close other buffers",
     },
   },
@@ -234,7 +259,9 @@ M.comment = {
   -- toggle comment in both modes
   n = {
     ["<leader>/"] = {
-      function() require("Comment.api").toggle.linewise.current() end,
+      function()
+        require("Comment.api").toggle.linewise.current()
+      end,
       "Toggle comment",
     },
   },
@@ -261,67 +288,110 @@ M.lspconfig = {
 
   n = {
     ["<leader>rv"] = {
-      function() require("aghriss.utils.renamer").open() end,
+      function()
+        require("aghriss.utils.renamer").open()
+      end,
       "LSP Rename var",
     },
     ["<leader>spl"] = { ":set spell spelllang=en_us<CR>", "" },
     ["<leader>nspl"] = { ":set nospell<CR>", "" },
     ["<leader>lf"] = {
-      function() vim.lsp.buf.format({ async = true, timeout_ms = 10000 }) end,
+      function()
+        vim.lsp.buf.format({ async = true, timeout_ms = 10000 })
+      end,
       "LSP formatting",
     },
-    ["gD"] = { function() vim.lsp.buf.declaration() end, "LSP declaration" },
-    ["gd"] = { function() vim.lsp.buf.definition() end, "LSP definition" },
+    ["gD"] = {
+      function()
+        vim.lsp.buf.declaration()
+      end,
+      "LSP declaration",
+    },
+    ["gd"] = {
+      function()
+        vim.lsp.buf.definition()
+      end,
+      "LSP definition",
+    },
     ["gi"] = {
-      function() vim.lsp.buf.implementation() end,
+      function()
+        vim.lsp.buf.implementation()
+      end,
       "LSP implementation",
     },
-    ["K"] = { function() vim.lsp.buf.hover() end, "LSP hover" },
+    ["K"] = {
+      function()
+        vim.lsp.buf.hover()
+      end,
+      "LSP hover",
+    },
     ["gr"] = {
-      function() vim.lsp.buf.references() end,
+      function()
+        vim.lsp.buf.references()
+      end,
       "LSP references",
     },
 
     ["[d"] = {
-      function() vim.diagnostic.goto_prev({ float = { border = "rounded" } }) end,
+      function()
+        vim.diagnostic.goto_prev({ float = { border = "rounded" } })
+      end,
       "Goto prev",
     },
 
     ["]d"] = {
-      function() vim.diagnostic.goto_next({ float = { border = "rounded" } }) end,
+      function()
+        vim.diagnostic.goto_next({ float = { border = "rounded" } })
+      end,
       "Goto next",
     },
 
     ["<leader>f"] = {
-      function() vim.diagnostic.open_float({ border = "rounded" }) end,
+      function()
+        vim.diagnostic.open_float({ border = "rounded" })
+      end,
       "Floating diagnostic",
     },
     ["<leader>ls"] = {
-      function() vim.lsp.buf.signature_help() end,
+      function()
+        vim.lsp.buf.signature_help()
+      end,
       "LSP signature help",
     },
     ["<leader>D"] = {
-      function() vim.lsp.buf.type_definition() end,
+      function()
+        vim.lsp.buf.type_definition()
+      end,
       "LSP definition type",
     },
     ["<leader>ca"] = {
-      function() vim.lsp.buf.code_action() end,
+      function()
+        vim.lsp.buf.code_action()
+      end,
       "LSP code action",
     },
     ["<leader>q"] = {
-      function() vim.diagnostic.setloclist() end,
+      function()
+        vim.diagnostic.setloclist()
+      end,
       "Diagnostic setloclist",
     },
     ["<leader>wa"] = {
-      function() vim.lsp.buf.add_workspace_folder() end,
+      function()
+        vim.lsp.buf.add_workspace_folder()
+      end,
       "Add workspace folder",
     },
     ["<leader>wr"] = {
-      function() vim.lsp.buf.remove_workspace_folder() end,
+      function()
+        vim.lsp.buf.remove_workspace_folder()
+      end,
       "Remove workspace folder",
     },
     ["<leader>wl"] = {
-      function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+      function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+      end,
       "List workspace folders",
     },
   },
@@ -348,17 +418,23 @@ M.nvterm = {
   t = {
     -- toggle in terminal mode
     ["<A-i>"] = {
-      function() require("nvterm.terminal").toggle("float") end,
+      function()
+        require("nvterm.terminal").toggle("float")
+      end,
       "Toggle floating term",
     },
 
     ["<A-h>"] = {
-      function() require("nvterm.terminal").toggle("horizontal") end,
+      function()
+        require("nvterm.terminal").toggle("horizontal")
+      end,
       "Toggle horizontal term",
     },
 
     ["<A-v>"] = {
-      function() require("nvterm.terminal").toggle("vertical") end,
+      function()
+        require("nvterm.terminal").toggle("vertical")
+      end,
       "Toggle vertical term",
     },
   },
@@ -366,26 +442,36 @@ M.nvterm = {
   n = {
     -- toggle in normal mode
     ["<A-i>"] = {
-      function() require("nvterm.terminal").toggle("float") end,
+      function()
+        require("nvterm.terminal").toggle("float")
+      end,
       "Toggle floating term",
     },
 
     ["<A-h>"] = {
-      function() require("nvterm.terminal").toggle("horizontal") end,
+      function()
+        require("nvterm.terminal").toggle("horizontal")
+      end,
     },
     ["<A-v>"] = {
-      function() require("nvterm.terminal").toggle("vertical") end,
+      function()
+        require("nvterm.terminal").toggle("vertical")
+      end,
       "Toggle vertical term",
     },
 
     -- new
     ["<leader>h"] = {
-      function() require("nvterm.terminal").new("horizontal") end,
+      function()
+        require("nvterm.terminal").new("horizontal")
+      end,
       "New horizontal term",
     },
 
     ["<leader>v"] = {
-      function() require("nvterm.terminal").new("vertical") end,
+      function()
+        require("nvterm.terminal").new("vertical")
+      end,
       "New vertical term",
     },
   },
@@ -435,7 +521,9 @@ M.dap_python = {
   plugin = true,
   n = {
     ["<leader>dpr"] = {
-      function() require("dap-python").test_method() end,
+      function()
+        require("dap-python").test_method()
+      end,
       "DAP Python test method",
     },
   },
@@ -457,7 +545,9 @@ M.whichkey = {
 
   n = {
     ["<leader>wK"] = {
-      function() vim.cmd("WhichKey") end,
+      function()
+        vim.cmd("WhichKey")
+      end,
       "Which-key all keymaps",
     },
     ["<leader>wk"] = {

@@ -1,15 +1,20 @@
 local options = {
 	ensure_installed = {
 		-- S:python
+    "clang-format",
 		"black",
 		"debugpy",
 		"mypy",
 		"pyright",
 		"ruff",
+    "typescript-language-server",
 		-- E:python
 		"rust-analyzer",
+    "typst-lsp",
 		"lua-language-server",
+    -- javascript, ts
 		"tailwindcss-language-server",
+    -- "eslint-lsp",
 		"ltex-ls",
 		"bash-language-server",
     "prettier", -- yaml

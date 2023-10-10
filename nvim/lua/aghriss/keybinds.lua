@@ -25,6 +25,7 @@ keymap.set({"n", "x", "o"}, "I", "L", opts)
 keymap.set({"n", "x", "o"}, "t", "i", opts)
 keymap.set({"n", "x", "o"}, "T", "I", opts)
 
+keymap.set({"n", "x", "o"}, "<c-z>", "<np>", opts)
 
 
 -- Undo/redo

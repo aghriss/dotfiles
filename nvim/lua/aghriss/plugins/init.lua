@@ -103,23 +103,37 @@ local plugins = {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
+    -- "nvim-treesitter/nvim-treesitter",
+    dev = true,
+    dir = "/sync/repos/plugins/nvim-treesitter",
     -- dependencies = { "base46" },
     init = function()
       require("aghriss.utils").lazy_load("nvim-treesitter")
     end,
-    lazy = false,
+    -- lazy = false,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = get_opts("aghriss.plugins.options.treesitter"),
-    -- config = function(_, opts)
-    -- require("base46").load_highlights("syntax")
-    -- require("base46").load_highlights("syntax")
-    -- require("nvim-treesitter.configs").setup(opts)
-    -- end,
+    config = function(_, opts)
+      -- require("base46").load_highlights("syntax")
+      -- require("base46").load_highlights("syntax")
+      require("nvim-treesitter.configs").setup(opts)
+      --   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+      --   parser_config.typst = {
+      --     install_info = {
+      --       url = "/sync/repos/plugins/tree-sitter-typst", -- local path or git repo
+      --       files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+      --       -- optional entries:
+      --       -- branch = "main", -- default branch in case of git repo if different from master
+      --       generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+      --       requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+      --     },
+      --     filetype = "typst", -- if filetype does not match the parser name
+      --   }
+    end,
   },
 
-  -- { "nvim-treesitter/playground", lazy = false },
+  { "nvim-treesitter/playground", lazy = false },
   {
     "lukas-reineke/indent-blankline.nvim",
     version = "2.20.7",
@@ -172,7 +186,7 @@ local plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    -- dependencies = "nvim-treesitter/nvim-treesitter",
     lazy = false,
     cmd = "Telescope",
     -- init = function()
@@ -293,6 +307,27 @@ local plugins = {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
+        "simrat39/rust-tools.nvim",
+      },
+    },
+  },
+
+  {
+    "simrat39/rust-tools.nvim",
+    config = function(_, opts)
+      require("rust-tools").setup(opts)
+    end,
+    opts = {
+      tools = {
+        runnables = {
+          use_telescope = true,
+        },
+        inlay_hints = {
+          auto = true,
+          show_parameter_hints = false,
+          parameter_hints_prefix = "",
+          other_hints_prefix = "",
+        },
       },
     },
   },
@@ -399,17 +434,17 @@ local plugins = {
       end
     end,
   },
-  {
-    "nvim-orgmode/orgmode",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    lazy = false,
-    -- ft = { "org" },
-    opts = get_opts("aghriss.plugins.options.org"),
-    config = function(_, opts)
-      require("orgmode").setup(opts)
-      require("orgmode").setup_ts_grammar()
-    end,
-  },
+  -- {
+  --   "nvim-orgmode/orgmode",
+  --   -- dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   lazy = false,
+  --   -- ft = { "org" },
+  --   opts = get_opts("aghriss.plugins.options.org"),
+  --   config = function(_, opts)
+  --     require("orgmode").setup(opts)
+  --     require("orgmode").setup_ts_grammar()
+  --   end,
+  -- },
   {
     "kdheepak/lazygit.nvim",
     dependencies = {
@@ -435,7 +470,10 @@ local plugins = {
   -- },
   {
     "narutoxy/dim.lua",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+    dependencies = {
+      -- "nvim-treesitter/nvim-treesitter",
+      "neovim/nvim-lspconfig",
+    },
     config = function()
       require("dim").setup({})
     end,
@@ -455,6 +493,39 @@ local plugins = {
       })
     end,
   },
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-telescope/telescope.nvim",
+      "mfussenegger/nvim-dap-python",
+    },
+    opts = {
+      -- Your options go here
+      -- name = "venv",
+      -- auto_refresh = false
+    },
+    event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+    keys = {
+      {
+        -- Keymap to open VenvSelector to pick a venv.
+        "<leader>vs",
+        "<cmd>:VenvSelect<cr>",
+        -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+        "<leader>vc",
+        "<cmd>:VenvSelectCached<cr>",
+      },
+    },
+  },
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+  },
+  -- {
+  --   "kaarmu/typst.vim",
+  --   ft = "typst",
+  --   -- lazy = true,
+  -- },
 }
 
 return plugins

@@ -15,8 +15,11 @@ map Q gq
 nmap <C-Tab> <Action>(NextTab)
 " map <S-Tab> <Action>(PreviousTab)
 nmap <leader>/ <Action>(CommentByLineComment)
-nmap <leader>r <Action>(ReformatCode)
-nmap <leader>td <Action>(ActivateTODOToolWindow) 
+" nmap <leader>r <Action>(ReformatCode)
+nmap <leader>lf <Action>(ReformatCode)
+nmap <leader>td <Action>(ActivateTODOToolWindow)
+nmap <leader>re <Action>(RenameElement)
+
 nnoremap " N|
 nnoremap ' n|
 nnoremap T I|
