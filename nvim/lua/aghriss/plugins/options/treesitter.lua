@@ -13,7 +13,7 @@ local options = {
     "rust",
     "python",
     "vim",
-    "typst",
+    -- "typst",
   },
   highlight = {
     enable = true,

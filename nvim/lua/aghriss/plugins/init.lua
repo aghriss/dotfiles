@@ -521,11 +521,11 @@ local plugins = {
     "rust-lang/rust.vim",
     ft = "rust",
   },
-  -- {
-  --   "kaarmu/typst.vim",
-  --   ft = "typst",
-  --   -- lazy = true,
-  -- },
+  {
+    "kaarmu/typst.vim",
+    ft = "typst",
+    -- lazy = true,
+  },
 }
 
 return plugins
