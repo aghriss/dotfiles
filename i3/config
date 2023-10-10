@@ -1,4 +1,4 @@
-default_border pixel 0
+# default_border pixel 0
 gaps inner 5
 gaps outer 5
 
@@ -7,12 +7,12 @@ gaps horizontal 1
 gaps vertical 1
 
 # disable title bar
-for_window [class="^.*"] border pixel 0
+# for_window [class="^.*"] border pixel 0
 
 # add focus border around windows
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 #c.? 			# ?	# ?	# ?	# ?	  # active border
-client.focused          #00ff00 #285577 #ffffff #2e9ef4 #669966
+client.focused          #00ff00 #285577 #ffffff #2e9ef4 #66cc66
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
