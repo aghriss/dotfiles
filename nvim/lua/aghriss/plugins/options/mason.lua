@@ -5,7 +5,8 @@ local options = {
 		"black",
 		"debugpy",
 		"mypy",
-		"pyright",
+		-- "pyright",
+    "python-lsp-server",
 		"ruff",
     "typescript-language-server",
 		-- E:python

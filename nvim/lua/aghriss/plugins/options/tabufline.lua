@@ -1,5 +1,5 @@
 return {
 	-- toggle_theme_icon = " ",
   -- theme = "nvchad"
-  theme = "aghriss"
+  theme = "cat"
 }

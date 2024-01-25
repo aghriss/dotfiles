@@ -1,23 +1,25 @@
 default_border pixel 0
-gaps inner 10
-gaps outer 15
+gaps inner 7
+gaps outer 10
 
 # gap from the edges
 gaps horizontal 1
 gaps vertical 1
 
 # add focus border around windows
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 2
 #c.? 			# ?	# ?	# ?	# ?	  # active border
-client.focused          #00ff00 #285577 #ffffff #2e9ef4 #80d011
+client.focused          #00ff00 #285577 #ffffff #2e9ef4 #00aa00
+client.unfocused        #003300 #285577 #ffffff #2e9ef4 #223322
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # font pango:monospace 9
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
-
+# font pango:DejaVu Sans Mono 8
+title_align center
+font pango:JetBrains Mono Nerd Font 9
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
@@ -41,25 +43,25 @@ exec --no-startup-id dex --autostart --environment i3
 # >>> Window rules <<<
   # >>> Avoid tiling Plasma popups, dropdown windows, etc. <<<
   # For the first time, manually resize them, i3 will remember the setting for floating windows
-    for_window [class="yakuake"] floating enable;
-    for_window [class="lattedock"] floating enable;
-    for_window [class="plasmashell"] floating enable;
-    for_window [class="Kmix"] floating enable;
-    for_window [class="kruler"] floating enable;
-    for_window [class="Plasma"] floating enable;
     for_window [class="Klipper"] floating enable;
-    for_window [class="krunner"] floating enable;
+    for_window [class="Kmix"] floating enable;
+    for_window [class="Plasma"] floating enable;
     for_window [class="Plasmoidviewer"] floating enable;
-    for_window [title="plasma-desktop"] floating enable;
+    for_window [class="kruler"] floating enable;
+    for_window [class="krunner"] floating enable;
+    for_window [class="lattedock"] floating enable;
     for_window [class="plasmashell" window_type="notification"] floating enable,move position 1450px 20px
+    for_window [class="plasmashell"] floating enable;
+    for_window [class="yakuake"] floating enable;
+    for_window [title="plasma-desktop"] floating enable;
     no_focus [class="plasmashell" window_type="notification"] 
 
   # >>> Avoid tiling for non-Plasma stuff <<<
-    for_window [window_role="pop-up"] floating enable
-    for_window [window_role="bubble"] floating enable
-    for_window [window_role="task_dialog"] floating enable
-    for_window [window_role="Preferences"] floating enable
     for_window [window_role="About"] floating enable
+    for_window [window_role="Preferences"] floating enable
+    for_window [window_role="bubble"] floating enable
+    for_window [window_role="pop-up"] floating enable
+    for_window [window_role="task_dialog"] floating enable
     for_window [window_type="dialog"] floating enable
     for_window [window_type="menu"] floating enable
     for_window [instance="__scratchpad"] floating enable
@@ -80,7 +82,7 @@ floating_modifier $meta
 
 # start a terminal
 # bindsym $mod+Return exec konsole
-bindsym $meta+Return exec --no-startup-id alacritty
+bindsym $meta+Return exec --no-startup-id kitty
 bindsym $meta+b exec --no-startup-id firefox
 bindsym $meta+d exec --no-startup-id dolphin
 bindsym $meta+z exec --no-startup-id zathura
@@ -104,21 +106,12 @@ bindsym $meta+Shift+i move right
 
 # split in horizontal orientation
 bindsym $meta+h split h
-
 # split in vertical orientation
 bindsym $meta+Shift+v split v
-# mode "split: [h]orizontal, [v]ertical" {
-	# bindsym h split h
-    # bindsym v split v
-	# bindsym Escape mode "default"
-	# bindsym Return mode "default"
-	# }
-# bindsym $meta+w mode "split: [h]orizontal, [v]ertical"
 
 
 # enter fullscreen mode for the focused container
 bindsym $meta+f fullscreen toggle
-
 # change container layout (stacked, tabbed, toggle split)
 bindsym $meta+Shift+s layout stacking
 bindsym $meta+Shift+t layout tabbed
@@ -126,7 +119,6 @@ bindsym $meta+Shift+g layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
-
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 

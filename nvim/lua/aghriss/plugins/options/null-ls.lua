@@ -35,9 +35,14 @@ return {
 
       generator_opts = {
         command = "typstfmt",
-        args = { "--output", "-" },
+        args = {
+          "--config",
+          vim.fn.stdpath("config") .. "/lua/aghriss/assets/lsp/typstfmt.toml",
+          -- "--verbose",
+          "--output",
+          "-",
+        },
         to_stdin = true,
-        -- to_stdout = true,
       },
       factory = h.formatter_factory,
     }),
@@ -72,6 +77,9 @@ return {
         "yaml",
         "markdown",
       },
+      extra_args = function()
+        return { "--tab-width", "4" }
+      end,
     }),
     formatting.stylua.with({
       extra_args = function()

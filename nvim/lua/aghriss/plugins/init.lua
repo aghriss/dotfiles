@@ -40,6 +40,7 @@ local plugins = {
   {
     "aghriss/tabufline.nvim",
     -- dev = true,
+    -- dir = "/sync/repos/plugins/tabufline.nvim/",
     -- -- lazy = true,
     lazy = false,
     init = function()
@@ -103,34 +104,34 @@ local plugins = {
   },
 
   {
-    -- "nvim-treesitter/nvim-treesitter",
-    dev = true,
-    dir = "/sync/repos/plugins/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter",
+    -- dev = true,
+    -- dir = "/sync/repos/plugins/nvim-treesitter",
     -- dependencies = { "base46" },
     init = function()
       require("aghriss.utils").lazy_load("nvim-treesitter")
     end,
-    -- lazy = false,
+    lazy = false,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = get_opts("aghriss.plugins.options.treesitter"),
-    config = function(_, opts)
-      -- require("base46").load_highlights("syntax")
-      -- require("base46").load_highlights("syntax")
-      require("nvim-treesitter.configs").setup(opts)
-      --   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-      --   parser_config.typst = {
-      --     install_info = {
-      --       url = "/sync/repos/plugins/tree-sitter-typst", -- local path or git repo
-      --       files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
-      --       -- optional entries:
-      --       -- branch = "main", -- default branch in case of git repo if different from master
-      --       generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-      --       requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-      --     },
-      --     filetype = "typst", -- if filetype does not match the parser name
-      --   }
-    end,
+    -- config = function(_, opts)
+    -- require("base46").load_highlights("syntax")
+    -- require("base46").load_highlights("syntax")
+    -- require("nvim-treesitter.configs").setup(opts)
+    --   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    --   parser_config.typst = {
+    --     install_info = {
+    --       url = "/sync/repos/plugins/tree-sitter-typst", -- local path or git repo
+    --       files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+    --       -- optional entries:
+    --       -- branch = "main", -- default branch in case of git repo if different from master
+    --       generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+    --       requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+    --     },
+    --     filetype = "typst", -- if filetype does not match the parser name
+    --   }
+    -- end,
   },
 
   { "nvim-treesitter/playground", lazy = false },
@@ -504,6 +505,8 @@ local plugins = {
       -- Your options go here
       -- name = "venv",
       -- auto_refresh = false
+      path = "/env/venv",
+      pipenv_path = "/env/venv",
     },
     event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
     keys = {
@@ -524,8 +527,24 @@ local plugins = {
   {
     "kaarmu/typst.vim",
     ft = "typst",
-    -- lazy = true,
+    lazy = true,
   },
+  -- {
+  --   "glacambre/firenvim",
+  --
+  --   -- Lazy load firenvim
+  --   -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
+  --   lazy = not vim.g.started_by_firenvim,
+  --   build = function()
+  --     vim.fn["firenvim#install"](0)
+  --   end,
+  --   init = function()
+  --     vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+  --       nested = true,
+  --       command = "write",
+  --     })
+  --   end,
+  -- },
 }
 
 return plugins

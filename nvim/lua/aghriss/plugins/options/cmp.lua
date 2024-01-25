@@ -1,6 +1,4 @@
 local cmp = require("cmp")
-
--- dofile(vim.g.base46_cache .. "cmp"o)
 local cmp_ui = {
   icons = true,
   lspkind_text = true,
@@ -8,7 +6,6 @@ local cmp_ui = {
   border_color = "grey_fg", -- only applicable for "default" style, use color names from base30 variables
   selected_item_bg = "colored", -- colored / simple
 }
--- local cmp_ui = require("aghriss.utils").load_config().ui.cmp
 local cmp_style = cmp_ui.style
 
 local field_arrangement = {
@@ -145,3 +142,5 @@ if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then
 end
 
 return options
+
+-- cmp.setup(options)

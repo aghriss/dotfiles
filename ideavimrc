@@ -1,25 +1,29 @@
-filetype plugin indent on
-syntax enable
 let mapleader=" "
+filetype plugin indent on
 set incsearch
 set scrolloff=5
+" syntax enable
 " set ttimeout
 set ttimeoutlen=10
 set ttyfast
+
 
 vmap <leader>rs "0y:s/<C-r>0//g<Left><Left>
 map <C--> <Action>(EditorDecreaseFontSize)
 map <C-=> <Action>(EditorIncreaseFontSize)
 " map <C-w> <Action>(CloseActiveTab)
 map Q gq
-nmap <C-Tab> <Action>(NextTab)
+" nmap <C-Tab> <Action>(NextTab)
+" xmap <C-Tab> <Action>(NextTab)
+" omap <C-Tab> <Action>(NextTab)
 " map <S-Tab> <Action>(PreviousTab)
 nmap <leader>/ <Action>(CommentByLineComment)
 " nmap <leader>r <Action>(ReformatCode)
 nmap <leader>lf <Action>(ReformatCode)
 nmap <leader>td <Action>(ActivateTODOToolWindow)
 nmap <leader>re <Action>(RenameElement)
-
+nmap <leader>cr <Action>(CollapseRegion)
+nmap <leader>cb <Action>(CollapseBlock)
 nnoremap " N|
 nnoremap ' n|
 nnoremap T I|
@@ -28,10 +32,10 @@ nnoremap h n|xnoremap h n|onoremap h n|
 nnoremap i l|xnoremap i l|onoremap i l|
 nnoremap l m|xnoremap l m|onoremap l m|
 nnoremap m h|xnoremap m h|onoremap m h|
-nnoremap n j|xnoremap n j|onoremap n j|
+nnoremap n j|xnoremap n j|onoremap n j|vnoremap n j|
 nnoremap t i|
 nnoremap z u|
-vmap <A-e> :m'<-2<CR>gv=gv
+vmap <A-e> :m'<-3<CR>gv=gv
 vmap <A-n> :m'>+1<CR>gv=gv
 vmap <leader>P "*P
 vmap <leader>p "*p

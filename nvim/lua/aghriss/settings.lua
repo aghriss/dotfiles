@@ -2,11 +2,11 @@
 local opt = vim.opt
 local g = vim.g
 -- local api = vim.api
-local config = require("aghriss.configs")
+-- local config = require("aghriss.configs")
 -------------------------------------- globals -----------------------------------------
 -- g.nvchad_theme = config.ui.theme
 g.cheatsheet_displayed = false
-g.transparency = config.ui.transparency
+-- g.transparency = config.ui.transparency
 g.mapleader = " "
 -------------------------------------- options ---------------------------------
 -- interval for writing swap file to disk, also used by gitsigns
