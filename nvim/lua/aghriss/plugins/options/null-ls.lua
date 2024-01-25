@@ -56,6 +56,70 @@ return {
 
 		--markdown
 		-- formatting.markdownlint,
+      generator_opts = {
+        command = "typstfmt",
+        args = {
+          "--config",
+          vim.fn.stdpath("config") .. "/lua/aghriss/assets/lsp/typstfmt.toml",
+          -- "--verbose",
+          "--output",
+          "-",
+        },
+        to_stdin = true,
+      },
+      factory = h.formatter_factory,
+    }),
+    -- python
+    formatting.clang_format,
+    formatting.black,
+    -- lint.mypy.with({
+    -- 	extra_args = function()
+    -- 		local virtual = os.getenv("VIRTUAL_ENV")
+    -- 		virtual = virtual or os.getenv("CONDA_DEFAULT_ENV") or "/usr"
+    -- 		return {
+    -- 			{ "--python-executable", virtual .. "/bin/python3" },
+    -- 			"--pep561-override",
+    -- 		}
+    -- 	end,
+    -- }),
+    lint.ruff,
+
+    formatting.prettier.with({
+      -- command = "npx prettier",
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "css",
+        "scss",
+        "less",
+        "html",
+        "json",
+        "jsonc",
+        "yaml",
+        "markdown",
+      },
+      extra_args = function()
+        return { "--tab-width", "4" }
+      end,
+    }),
+    formatting.stylua.with({
+      extra_args = function()
+        return {
+          "--config-path",
+          vim.fn.stdpath("config") .. "/lua/aghriss/assets/lsp/stylua.toml",
+        }
+      end,
+    }),
+    -- formatting.lua_format.with({
+    -- extra_args = function()
+    -- return {
+    -- "--config",
+    -- vim.fn.stdpath("config") .. "/lua/aghriss/assets/lsp/lua-format.yaml",
+    -- }
+    -- end,
+    -- }),
 
 		-- sh
 		lint.shellcheck,

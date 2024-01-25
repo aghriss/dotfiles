@@ -10,6 +10,8 @@
 alias clean="sudo emerge -auv --depclean --changed-use"
 alias lg="lazygit"
 alias unmerge="sudo emerge -aC"
+alias startvirt="virt-manager --connect qemu:///system"
+alias todo="todo.sh"
 
 function service(){
 	if [[ $1 == "start" ]];	then
@@ -50,3 +52,13 @@ source ~/.config/zsh/manjaro-zsh-prompt
 # source ~/.config/zsh/manjaro-p10k.zsh
 source ~/.config/zsh/aghriss-p10k.zsh
 
+source ~/.config/zsh/hashes.sh
+export XMODIFIERS=@im=ibus
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+
+# Use `xim` in case some Electron apps (like Chromium) refuse to work with IBus
+# export GTK_IM_MODULE=xim
+# export QT_IM_MODULE=xim
+
+ibus-daemon -drx

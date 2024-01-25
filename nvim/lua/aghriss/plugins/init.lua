@@ -36,6 +36,7 @@ local plugins = {
   {
     "aghriss/tabufline.nvim",
     -- dev = true,
+    -- dir = "/sync/repos/plugins/tabufline.nvim/",
     -- -- lazy = true,
     lazy = false,
     init = function() require("aghriss.utils").load_mappings("tabufline") end,
@@ -92,6 +93,13 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     -- dependencies = { "base46" },
     init = function() require("aghriss.utils").lazy_load("nvim-treesitter") end,
+    -- dev = true,
+    -- dir = "/sync/repos/plugins/nvim-treesitter",
+    -- dependencies = { "base46" },
+    init = function()
+      require("aghriss.utils").lazy_load("nvim-treesitter")
+    end,
+    lazy = false,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = get_opts("aghriss.plugins.options.treesitter"),
@@ -99,6 +107,18 @@ local plugins = {
     -- require("base46").load_highlights("syntax")
     -- require("base46").load_highlights("syntax")
     -- require("nvim-treesitter.configs").setup(opts)
+    --   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    --   parser_config.typst = {
+    --     install_info = {
+    --       url = "/sync/repos/plugins/tree-sitter-typst", -- local path or git repo
+    --       files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+    --       -- optional entries:
+    --       -- branch = "main", -- default branch in case of git repo if different from master
+    --       generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+    --       requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+    --     },
+    --     filetype = "typst", -- if filetype does not match the parser name
+    --   }
     -- end,
   },
 
@@ -373,6 +393,89 @@ local plugins = {
     lazy = false,
     -- dev = true,
   },
+
+  -- {
+  --   "aghriss/telescope-test.nvim",
+  --   dev = true,
+  --   dir = "/home/aghriss/scratch/telescope-test.nvim/",
+  --   lazy = false,
+  -- },
+  {
+    "narutoxy/dim.lua",
+    dependencies = {
+      -- "nvim-treesitter/nvim-treesitter",
+      "neovim/nvim-lspconfig",
+    },
+    config = function()
+      require("dim").setup({})
+    end,
+  },
+  -- {
+  -- "ggandor/leap.nvim",
+  -- dependencies = { "tpope/vim-repeat" },
+  -- lazy = false,
+  -- },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end,
+  },
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-telescope/telescope.nvim",
+      "mfussenegger/nvim-dap-python",
+    },
+    opts = {
+      -- Your options go here
+      -- name = "venv",
+      -- auto_refresh = false
+      path = "/env/venv",
+      pipenv_path = "/env/venv",
+    },
+    event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+    keys = {
+      {
+        -- Keymap to open VenvSelector to pick a venv.
+        "<leader>vs",
+        "<cmd>:VenvSelect<cr>",
+        -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+        "<leader>vc",
+        "<cmd>:VenvSelectCached<cr>",
+      },
+    },
+  },
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+  },
+  {
+    "kaarmu/typst.vim",
+    ft = "typst",
+    lazy = true,
+  },
+  -- {
+  --   "glacambre/firenvim",
+  --
+  --   -- Lazy load firenvim
+  --   -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
+  --   lazy = not vim.g.started_by_firenvim,
+  --   build = function()
+  --     vim.fn["firenvim#install"](0)
+  --   end,
+  --   init = function()
+  --     vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+  --       nested = true,
+  --       command = "write",
+  --     })
+  --   end,
+  -- },
 }
 
 return plugins

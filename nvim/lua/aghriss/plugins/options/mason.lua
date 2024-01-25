@@ -4,7 +4,8 @@ local options = {
 		"black",
 		"debugpy",
 		"mypy",
-		"pyright",
+		-- "pyright",
+    "python-lsp-server",
 		"ruff",
 		-- E:python
 		"rust-analyzer",

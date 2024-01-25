@@ -82,6 +82,48 @@ lspconfig.pyright.setup({
 	capabilities = M.capabilities,
 	filetypes = { "python" },
 })
+lspconfig.ccls.setup({
+  init_options = {
+    -- compilationDatabaseDirectory = "build";
+    -- index = {
+    -- threads = 0;
+    -- };
+    -- clang = {
+    -- excludeArgs = { "-frounding-math"} ;
+    -- };
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+  },
+})
+-- python
+lspconfig.pyright.setup({
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  filetypes = { "python" },
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "openFilesOnly",
+        useLibraryCodeForTypes = true,
+      },
+    },
+  },
+})
+-- lspconfig.pylsp.setup({
+--   settings = {
+--     pylsp = {
+--       plugins = {
+--         pycodestyle = {
+--           ignore = { "W391" },
+--           maxLineLength = 84,
+--         },
+--       },
+--     },
+--   },
+-- })
+
 lspconfig.rust_analyzer.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
@@ -154,6 +196,7 @@ lspconfig.tailwindcss.setup({
 	capabilities = M.capabilities,
 	filetypes = { "css", "html" },
 })
+
 lspconfig.bashls.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
