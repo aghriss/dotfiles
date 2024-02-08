@@ -19,7 +19,7 @@ local formatting_style = {
   fields = field_arrangement[cmp_style] or { "abbr", "kind", "menu" },
 
   format = function(entry, item)
-    local icons = require("aghriss.assets.icons").lspkind
+    local icons = require("aghriss.plugins.options.icons").lspkind
     local icon = (cmp_ui.icons and icons[item.kind]) or ""
 
     if cmp_style == "atom" or cmp_style == "atom_colored" then

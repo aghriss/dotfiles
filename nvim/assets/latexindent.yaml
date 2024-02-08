@@ -1,0 +1,38 @@
+# noAdditionalIndent:
+  # aligned: 1
+# lookForAlignDelims:
+  # aligned: 1
+  # alignFinalDoubleBackSlash: 1
+modifyLineBreaks:
+  preserveBlankLines: 1 # 0/1
+  condenseMultipleBlankLinesInto: 1 # 0/1
+  textWrapOptions:
+    multipleSpacesToSingle: 1
+    removeBlockLineBreaks: 1
+    columns: 84
+    when: after # before/after
+    comments:
+      wrap: 0 # 0/1
+      inheritLeadingSpace: 0 # 0/1
+    blocksFollow:
+      headings: 1 # 0/1
+      commentOnPreviousLine: 1 # 0/1
+      par: 1 # 0/1
+      blankLine: 1 # 0/1
+      verbatim: 1 # 0/1
+      filecontents: 1 # 0/1
+      # other: 1
+      other: \\\]|\\item(?:\h|\[) # regex
+    blocksBeginWith:
+      A-Z: 1 # 0/1
+      a-z: 1 # 0/1
+      0-9: 1 # 0/1
+      other: 0 # regex
+    blocksEndBefore:
+      commentOnOwnLine: 1 # 0/1
+      verbatim: 1 # 0/1
+      filecontents: 1 # 0/1
+      # other: 0
+      # other: \\begin\{|\\\[|\\end\{    # regex
+    huge: overflow # forbid mid-word line breaks
+    separator: ""

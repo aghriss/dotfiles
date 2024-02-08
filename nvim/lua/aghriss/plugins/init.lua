@@ -1,3 +1,4 @@
+local U = require("aghriss.utils")
 local get_opts = function(path)
   local f = function()
     return require(path)
@@ -13,20 +14,25 @@ local plugins = {
     dir = vim.fn.stdpath("data") .. "/lazy/lazy.nvim",
     version = "10.0.2",
     init = function()
-      require("aghriss.utils").load_mappings("lazy")
+      U.load_mappings("lazy")
     end,
   },
+
   { "nvim-lua/plenary.nvim" }, -- used by other plugins for implementation
   {
     "aghriss/base46.nvim",
     -- dev = true,
+    -- dir = "/sync/repos/plugins/base46.nvim",
     priority = 1000,
+    build = function()
+      require("base46").compile()
+    end,
     lazy = false,
     opts = get_opts("aghriss.plugins.options.base46"),
-    -- config = function(_, opts)
-    -- require("base46").setup(opts)
-    -- require("base46").load_all_highlights()
-    -- end,
+    config = function(_, opts)
+      require("base46").setup(opts)
+      require("base46").load_all_highlights()
+    end,
   },
   {
     "aghriss/statusline.nvim",
@@ -41,33 +47,23 @@ local plugins = {
     "aghriss/tabufline.nvim",
     -- dev = true,
     -- dir = "/sync/repos/plugins/tabufline.nvim/",
-    -- -- lazy = true,
     lazy = false,
     init = function()
-      require("aghriss.utils").load_mappings("tabufline")
+      U.load_mappings("tabufline")
     end,
     opts = get_opts("aghriss.plugins.options.tabufline"),
   },
 
-  -- Tools
-  {
-    "NvChad/nvterm",
-    init = function()
-      require("aghriss.utils").load_mappings("nvterm")
-    end,
-    config = function(_, opts)
-      require("base46.term")
-      require("nvterm").setup(opts)
-    end,
-  },
+  ------------------------------------------- Tools
 
   -- Colors and trees
   {
     "NvChad/nvim-colorizer.lua",
     lazy = false,
     init = function()
-      require("aghriss.utils").lazy_load("nvim-colorizer.lua")
+      U.lazy_load("nvim-colorizer.lua")
     end,
+    opts = get_opts("aghriss.plugins.options.colorizers"),
     config = function(_, opts)
       require("colorizer").setup(opts)
       -- execute colorizer as soon as possible
@@ -80,58 +76,34 @@ local plugins = {
   {
     "nvim-tree/nvim-web-devicons",
     opts = function()
-      return { override = require("aghriss.assets.icons").devicons }
+      return { override = require("aghriss.plugins.options.icons").devicons }
     end,
-    -- config = function(_, opts)
-    -- require("base46").load_highlights("devicons")
-    -- require("nvim-web-devicons").setup(opts)
-    -- end,
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
+    "aghriss/nvim-tree.lua",
+    -- commit = "27e66c2",
+    -- dev = true,
+    -- dir = "/sync/repos/plugins/nvim-tree.lua",
     lazy = false,
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
-      require("aghriss.utils").load_mappings("nvimtree")
+      U.load_mappings("nvimtree")
     end,
     opts = get_opts("aghriss.plugins.options.nvimtree"),
-    -- config = function(_, opts)
-    -- require("base46").load_highlights("nvimtree")
-    -- require("nvim-tree").setup(opts)
-    -- vim.g.nvimtree_side = opts.view.side
-    -- end,
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
     -- dev = true,
     -- dir = "/sync/repos/plugins/nvim-treesitter",
     -- dependencies = { "base46" },
-    init = function()
-      require("aghriss.utils").lazy_load("nvim-treesitter")
-    end,
+    -- init = function()
+    -- U.lazy_load("nvim-treesitter")
+    -- end,
     lazy = false,
+    opts = get_opts("aghriss.plugins.options.treesitter"),
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
-    opts = get_opts("aghriss.plugins.options.treesitter"),
-    -- config = function(_, opts)
-    -- require("base46").load_highlights("syntax")
-    -- require("base46").load_highlights("syntax")
-    -- require("nvim-treesitter.configs").setup(opts)
-    --   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-    --   parser_config.typst = {
-    --     install_info = {
-    --       url = "/sync/repos/plugins/tree-sitter-typst", -- local path or git repo
-    --       files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
-    --       -- optional entries:
-    --       -- branch = "main", -- default branch in case of git repo if different from master
-    --       generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-    --       requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-    --     },
-    --     filetype = "typst", -- if filetype does not match the parser name
-    --   }
-    -- end,
   },
 
   { "nvim-treesitter/playground", lazy = false },
@@ -139,14 +111,21 @@ local plugins = {
     "lukas-reineke/indent-blankline.nvim",
     version = "2.20.7",
     init = function()
-      require("aghriss.utils").lazy_load("indent-blankline.nvim")
-      require("aghriss.utils").load_mappings("blankline")
+      U.lazy_load("indent-blankline.nvim")
+      U.load_mappings("blankline")
     end,
     opts = get_opts("aghriss.plugins.options.blankline"),
-    -- config = function(_, opts)
-    -- require("base46").load_highlights("blankline")
-    -- require("indent_blankline").setup(opts)
-    -- end,
+  },
+  -- Terminal & git
+  {
+    "NvChad/nvterm",
+    init = function()
+      U.load_mappings("nvterm")
+    end,
+    config = function(_, opts)
+      require("base46.term")
+      require("nvterm").setup(opts)
+    end,
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -171,17 +150,12 @@ local plugins = {
       })
     end,
     opts = get_opts("aghriss.plugins.options.gitsigns"),
-    -- config = function(_, opts)
-    -- require("base46").load_highlights("git")
-    -- require("gitsigns").setup(opts)
-    -- end,
   },
-
   {
     "mbbill/undotree",
     lazy = false,
     init = function()
-      require("aghriss.utils").load_mappings("undotree")
+      U.load_mappings("undotree")
     end,
   },
 
@@ -190,13 +164,11 @@ local plugins = {
     -- dependencies = "nvim-treesitter/nvim-treesitter",
     lazy = false,
     cmd = "Telescope",
-    -- init = function()
-    -- end,
     opts = get_opts("aghriss.plugins.options.telescope"),
     config = function(_, opts)
       local ts = require("telescope")
       ts.setup(opts)
-      require("aghriss.utils").load_mappings("telescope")
+      U.load_mappings("telescope")
       -- load extensions
       for _, ext in ipairs(opts.extensions_list) do
         ts.load_extension(ext)
@@ -205,21 +177,21 @@ local plugins = {
   },
   {
     "folke/which-key.nvim",
-    -- lazy = false,
-    keys = { "<leader>", '"', "'", "`", "c", "v", "g" },
-    init = function()
-      require("aghriss.utils").load_mappings("whichkey")
-    end,
+    keys = { "<leader>", "<localleader>", '"', "'", "`", "c", "v", "g" },
     config = function(_, opts)
       require("base46").load_highlights("whichkey")
       require("which-key").setup(opts)
+      U.load_mappings("whichkey")
     end,
   },
-  -- BEGIN: LSP stuff
+
+  -------------------------------- BEGIN: LSP stuff
+  -- Linters and  formatters
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = get_opts("aghriss.plugins.options.null-ls"),
   },
+  -- LSP servers
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -227,13 +199,13 @@ local plugins = {
     },
     config = function()
       require("aghriss.plugins.configs.lspconfig")
-      require("aghriss.utils").load_mappings("lspconfig")
+      U.load_mappings("lspconfig")
     end,
     init = function()
-      require("aghriss.utils").lazy_load("nvim-lspconfig")
+      U.lazy_load("nvim-lspconfig")
     end,
   },
-
+  -- LSP binaries installer
   {
     "williamboman/mason.nvim",
     tag = "stable",
@@ -246,7 +218,6 @@ local plugins = {
       "MasonLog",
     },
     opts = get_opts("aghriss.plugins.options.mason"),
-
     config = function(_, opts)
       require("mason").setup(opts)
       vim.api.nvim_create_user_command("MasonInstallAll", function()
@@ -255,26 +226,13 @@ local plugins = {
     end,
   },
 
-  {
-    "NvChad/nvim-colorizer.lua",
-    init = function()
-      require("aghriss.utils").lazy_load("nvim-colorizer.lua")
-    end,
-    opts = get_opts("aghriss.plugins.options.colorizers"),
-    config = function(_, opts)
-      require("colorizer").setup(opts)
-      -- execute colorizer as soon as possible
-      vim.defer_fn(function()
-        require("colorizer").attach_to_buffer(0)
-      end, 0)
-    end,
-  },
-
+  -- Code completions
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
-    config = function()
-      require("cmp").setup(require("aghriss.plugins.options.cmp"))
+    opts = get_opts("aghriss.plugins.options.cmp"),
+    config = function(_, opts)
+      require("cmp").setup(opts)
     end,
     dependencies = {
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
@@ -343,13 +301,13 @@ local plugins = {
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
     },
     init = function()
-      require("aghriss.utils").load_mappings("comment")
+      U.load_mappings("comment")
     end,
   },
   {
     "lervag/vimtex",
     init = function()
-      require("aghriss.utils").load_mappings("vimtex")
+      U.load_mappings("vimtex")
     end,
     config = function()
       vim.g.vimtex_quickfix_enabled = 1
@@ -389,17 +347,19 @@ local plugins = {
       vim.fn["mkdp#util#install"]()
     end,
     init = function()
-      require("aghriss.utils").load_mappings("markdown")
+      U.load_mappings("markdown")
     end,
     config = function()
       vim.g.mkdp_browser = "chromium"
       vim.g.mkdp_theme = "dark"
+      -- close browser when changing buffer
+      vim.g.mkdp_auto_close = 0
     end,
   },
   {
     "mfussenegger/nvim-dap",
     init = function()
-      require("aghriss.utils").load_mappings("dap")
+      U.load_mappings("dap")
     end,
   },
   {
@@ -411,8 +371,7 @@ local plugins = {
     },
     config = function()
       local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-
-      require("aghriss.utils").load_mappings("dap_python")
+      U.load_mappings("dap_python")
       require("dap-python").setup(path)
     end,
   },
@@ -455,7 +414,7 @@ local plugins = {
   {
     "aghriss/move.nvim",
     init = function()
-      require("aghriss.utils").load_mappings("move")
+      U.load_mappings("move")
     end,
     -- opts = { load_commands = false },
     -- opts = {},
@@ -502,23 +461,16 @@ local plugins = {
       "mfussenegger/nvim-dap-python",
     },
     opts = {
-      -- Your options go here
-      -- name = "venv",
-      -- auto_refresh = false
       path = "/env/venv",
+      parents = 0,
       pipenv_path = "/env/venv",
     },
-    event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
-    keys = {
-      {
-        -- Keymap to open VenvSelector to pick a venv.
-        "<leader>vs",
-        "<cmd>:VenvSelect<cr>",
-        -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
-        "<leader>vc",
-        "<cmd>:VenvSelectCached<cr>",
-      },
-    },
+    config = function(_, opts)
+      require("venv-selector").setup(opts)
+      U.load_mappings("venv")
+    end,
+    event = "VeryLazy",
+    keys = { { "<localleader>vs" }, { "<localleader>vc" } },
   },
   {
     "rust-lang/rust.vim",
@@ -529,20 +481,70 @@ local plugins = {
     ft = "typst",
     lazy = true,
   },
+  {
+    "aghriss/molten-nvim",
+    dev = true,
+    dir = "/sync/repos/plugins/molten-nvim",
+    lazy = false,
+    -- version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
+    dependencies = {
+      {
+        -- see the image.nvim readme for more information about configuring this plugin
+        "3rd/image.nvim",
+        opts = {
+          backend = "kitty", -- whatever backend you would like to use
+          max_width = 100,
+          max_height = 12,
+          max_height_window_percentage = math.huge,
+          max_width_window_percentage = math.huge,
+          window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+          window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+        },
+      },
+    },
+    build = ":UpdateRemotePlugins",
+    opts = {},
+    config = function(_, opts)
+      require("molten").setup(opts)
+    end,
+    init = function()
+      require("aghriss.plugins.configs.molten")
+      -- these are examples, not defaults. Please see the readme
+      U.load_mappings("molten")
+    end,
+  },
   -- {
-  --   "glacambre/firenvim",
-  --
-  --   -- Lazy load firenvim
-  --   -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
-  --   lazy = not vim.g.started_by_firenvim,
-  --   build = function()
-  --     vim.fn["firenvim#install"](0)
+  --   "quarto-dev/quarto-nvim",
+  --   lazy = false,
+  --   opts = get_opts("aghriss.plugins.options.quarto"),
+  --   config = function (_, opts)
+  --     require("quarto").setup(opts)
+  --     U.load_mappings("quarto")
   --   end,
-  --   init = function()
-  --     vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
-  --       nested = true,
-  --       command = "write",
-  --     })
+  --   dependencies = {
+  --     "jmbuhr/otter.nvim",
+  --     "hrsh7th/nvim-cmp",
+  --     "neovim/nvim-lspconfig",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  -- },
+  --
+  -- {
+  --   "GCBallesteros/jupytext.nvim",
+  --   lazy = false,
+  --   opts = {
+  --     style = "markdown",
+  --     output_extension = "md",
+  --     force_ft = "markdown",
+  --   },
+  -- },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-textobjects",
+  --   lazy = false,
+  --   after = "nvim-treesitter",
+  --   dependencies = "nvim-treesitter/nvim-treesitter",
+  --   config = function()
+  --     require("aghriss.plugins.configs.treesitter_objects")
   --   end,
   -- },
 }

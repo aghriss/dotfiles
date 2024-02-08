@@ -5,23 +5,7 @@ local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
 local lint = null_ls.builtins.diagnostics
 
--- local typstfmt = {
---   method = methods.internal.FORMATTING,
---   filetypes = { "typst" },
---   generator = null_ls.formatter({
---     command = "typstfmt",
---     args = { "--output -", "$FILENAME" },
---     to_stdin = false,
---   }),
--- }
--- null_ls.register(typstfmt)
--- vim.tbl_deep_extend("keep", lspconfig, {
--- lsp_name = {
--- cmd = { "typstfmt" },
--- filetypes = { "typst" },
--- name = "typstfmt",
--- },
--- })
+
 return {
   sources = {
     h.make_builtin({
@@ -37,7 +21,7 @@ return {
         command = "typstfmt",
         args = {
           "--config",
-          vim.fn.stdpath("config") .. "/lua/aghriss/assets/lsp/typstfmt.toml",
+          vim.fn.stdpath("config") .. "/assets/typstfmt.toml",
           -- "--verbose",
           "--output",
           "-",
@@ -47,8 +31,22 @@ return {
       factory = h.formatter_factory,
     }),
     -- python
-    formatting.clang_format,
-    formatting.black,
+    -- formatting.clang_format,
+    formatting.black.with({
+      extra_args = function()
+        return {
+          "--config",
+          vim.fn.stdpath("config") .. "/assets/black.toml"}
+      end
+    }),
+    -- formatting.ruff,
+    -- formatting.ruff.with({
+    --   extra_args = function()
+    --     return {
+    --       "--config",
+    --       vim.fn.stdpath("config") .. "/assets/ruff.toml"}
+    --   end
+    -- }),
     -- lint.mypy.with({
     -- 	extra_args = function()
     -- 		local virtual = os.getenv("VIRTUAL_ENV")
@@ -59,7 +57,13 @@ return {
     -- 		}
     -- 	end,
     -- }),
-    lint.ruff,
+    lint.ruff.with({
+      extra_args = function()
+        return {
+          "--config",
+          vim.fn.stdpath("config") .. "/assets/ruff.toml"}
+      end
+    }),
 
     formatting.prettier.with({
       -- command = "npx prettier",
@@ -85,7 +89,7 @@ return {
       extra_args = function()
         return {
           "--config-path",
-          vim.fn.stdpath("config") .. "/lua/aghriss/assets/lsp/stylua.toml",
+          vim.fn.stdpath("config") .. "/assets/stylua.toml",
         }
       end,
     }),
@@ -93,7 +97,7 @@ return {
     -- extra_args = function()
     -- return {
     -- "--config",
-    -- vim.fn.stdpath("config") .. "/lua/aghriss/assets/lsp/lua-format.yaml",
+    -- vim.fn.stdpath("config") .. "/assets/lua-format.yaml",
     -- }
     -- end,
     -- }),
@@ -110,7 +114,7 @@ return {
       extra_args = function()
         return {
           "-l",
-          vim.fn.stdpath("config") .. "/lua/aghriss/assets/lsp/latexindent.yaml",
+          vim.fn.stdpath("config") .. "/assets/latexindent.yaml",
           "-m",
         }
       end,

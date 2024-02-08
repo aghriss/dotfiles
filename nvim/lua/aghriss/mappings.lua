@@ -9,14 +9,14 @@ M.general = {
   },
 
   n = {
-    ["<leader>wq"] = { "<cmd>q<CR>", "Quit window" },
-    ["<leader>wyq"] = { "<cmd>q!<CR>", "Force Quit window" },
+    ["<localleader>wq"] = { "<cmd>q<CR>", "Quit window" },
+    ["<localleader>wyq"] = { "<cmd>q!<CR>", "Force Quit window" },
 
     -- quickfix navigation
-    ["A-n"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
-    ["A-e"] = { "<cmd>cprev<CR>zz", "Quickfix prev" },
+    -- ["A-n"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
+    -- ["A-e"] = { "<cmd>cprev<CR>zz", "Quickfix prev" },
     ["<Esc>"] = { ":noh <CR>", "Clear highlights" },
-    ["<leader>s"] = {
+    ["<leader>sw"] = {
       [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
       "Replace current word",
     },
@@ -283,109 +283,49 @@ M.lazy = {
 
 M.lspconfig = {
   plugin = true,
-
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
-
   n = {
-    ["<leader>rv"] = {
-      function()
-        require("aghriss.utils.renamer").open()
-      end,
-      "LSP Rename var",
-    },
+    -- navigate diagnostics
     ["<leader>spl"] = { ":set spell spelllang=en_us<CR>", "" },
-    ["<leader>nspl"] = { ":set nospell<CR>", "" },
-    ["<leader>lf"] = {
-      function()
-        vim.lsp.buf.format({ async = true, timeout_ms = 10000 })
-      end,
-      "LSP formatting",
-    },
-    ["gD"] = {
-      function()
-        vim.lsp.buf.declaration()
-      end,
-      "LSP declaration",
-    },
-    ["gd"] = {
-      function()
-        vim.lsp.buf.definition()
-      end,
-      "LSP definition",
-    },
-    ["gi"] = {
-      function()
-        vim.lsp.buf.implementation()
-      end,
-      "LSP implementation",
-    },
-    ["K"] = {
-      function()
-        vim.lsp.buf.hover()
-      end,
-      "LSP hover",
-    },
-    ["gr"] = {
-      function()
-        vim.lsp.buf.references()
-      end,
-      "LSP references",
-    },
-
-    ["[d"] = {
+    ["<leader>spln"] = { ":set nospell<CR>", "" },
+    ["<leader>lca"] = { vim.lsp.buf.code_action, "LSP code action" },
+    ["<leader>lD"] = { vim.lsp.buf.definition, "LSP definition" },
+    ["<leader>lgi"] = { vim.lsp.buf.implementation, "LSP implementation" },
+    ["<leader>lh"] = { vim.lsp.buf.hover, "LSP hover" },
+    ["<leader>ld"] = { vim.lsp.buf.declaration, "LSP declaration" },
+    ["<leader>lgr"] = { vim.lsp.buf.references, "LSP references" },
+    ["<leader>lgt"] = { vim.lsp.buf.type_definition, "LSP definition type" },
+    ["<leader>ls"] = { vim.lsp.buf.signature_help, "LSP signature help" },
+    ["<leader>lq"] = { vim.diagnostic.setloclist, "Diagnostic setloclist" },
+    ["<leader>l("] = {
       function()
         vim.diagnostic.goto_prev({ float = { border = "rounded" } })
       end,
       "Goto prev",
     },
 
-    ["]d"] = {
+    ["<leader>l)"] = {
       function()
         vim.diagnostic.goto_next({ float = { border = "rounded" } })
       end,
       "Goto next",
     },
-
-    ["<leader>f"] = {
+    -- tasks
+    ["<localleader>lf"] = {
       function()
-        vim.diagnostic.open_float({ border = "rounded" })
+        -- limit waiting time for 5 seconds
+        vim.lsp.buf.format({ async = true, timeout_ms = 5000 })
       end,
-      "Floating diagnostic",
+      "LSP formatting",
     },
-    ["<leader>ls"] = {
-      function()
-        vim.lsp.buf.signature_help()
-      end,
-      "LSP signature help",
+    ["<localleader>lr"] = {
+      require("aghriss.utils.renamer").open,
+      "LSP Rename var",
     },
-    ["<leader>D"] = {
-      function()
-        vim.lsp.buf.type_definition()
-      end,
-      "LSP definition type",
-    },
-    ["<leader>ca"] = {
-      function()
-        vim.lsp.buf.code_action()
-      end,
-      "LSP code action",
-    },
-    ["<leader>q"] = {
-      function()
-        vim.diagnostic.setloclist()
-      end,
-      "Diagnostic setloclist",
-    },
-    ["<leader>wa"] = {
-      function()
-        vim.lsp.buf.add_workspace_folder()
-      end,
-      "Add workspace folder",
-    },
+    -- workspaces
+    ["<leader>wa"] = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
     ["<leader>wr"] = {
-      function()
-        vim.lsp.buf.remove_workspace_folder()
-      end,
+      vim.lsp.buf.remove_workspace_folder,
       "Remove workspace folder",
     },
     ["<leader>wl"] = {
@@ -399,7 +339,7 @@ M.lspconfig = {
 
 M.markdown = {
   n = {
-    ["<leader>lm"] = { "<cmd> MarkdownPreview <CR>", "Start Markdown" },
+    ["<localleader>cm"] = { "<cmd> MarkdownPreview <CR>", "Compile Markdown" },
   },
 }
 
@@ -414,21 +354,17 @@ M.nvimtree = {
 
 M.nvterm = {
   plugin = true,
-
+  -- terminal mode
   t = {
-    -- toggle in terminal mode
-    ["<A-i>"] = {
-      function()
-        require("nvterm.terminal").toggle("float")
-      end,
-      "Toggle floating term",
-    },
+    -- ["<A-i>"] = {
+    -- "Toggle floating term",
+    -- function() require("nvterm.terminal").toggle("float") end, },
 
-    ["<A-h>"] = {
+    ["<C-h>"] = {
       function()
         require("nvterm.terminal").toggle("horizontal")
       end,
-      "Toggle horizontal term",
+      "Toggle h-term",
     },
 
     ["<A-v>"] = {
@@ -438,41 +374,22 @@ M.nvterm = {
       "Toggle vertical term",
     },
   },
-
+  -- normal mode
   n = {
-    -- toggle in normal mode
-    ["<A-i>"] = {
+    ["<localleader>th"] = {
       function()
-        require("nvterm.terminal").toggle("float")
-      end,
-      "Toggle floating term",
-    },
-
-    ["<A-h>"] = {
-      function()
+        -- require("nvterm.terminal").new("horizontal")
         require("nvterm.terminal").toggle("horizontal")
       end,
+      "Toggle h-term",
     },
-    ["<A-v>"] = {
+
+    ["<localleader>tv"] = {
       function()
+        -- require("nvterm.terminal").new("vertical")
         require("nvterm.terminal").toggle("vertical")
       end,
-      "Toggle vertical term",
-    },
-
-    -- new
-    ["<leader>h"] = {
-      function()
-        require("nvterm.terminal").new("horizontal")
-      end,
-      "New horizontal term",
-    },
-
-    ["<leader>v"] = {
-      function()
-        require("nvterm.terminal").new("vertical")
-      end,
-      "New vertical term",
+      "Toggle v-term",
     },
   },
 }
@@ -502,9 +419,8 @@ M.telescope = {
 
     -- pick a hidden term
     ["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
-
     -- theme switcher
-    ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
+    -- ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
 
     ["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
   },
@@ -528,15 +444,16 @@ M.dap_python = {
     },
   },
 }
+
 M.undotree = {
   n = {
-    ["<leader>u"] = { "<cmd>UndotreeToggle<CR>", "Toggle UndoTree" },
+    ["<localleader>U"] = { "<cmd>UndotreeToggle<CR>", "Toggle UndoTree" },
   },
 }
 M.vimtex = {
   plugin = true,
   n = {
-    ["<leader>lt"] = { "<cmd>VimtexCompile<CR>", "Compile Tex" },
+    ["<localleader>ct"] = { "<cmd>VimtexCompile<CR>", "Compile Tex" },
   },
 }
 
@@ -569,5 +486,59 @@ M.move = {
     ["<C-i>"] = { ":MoveHBlock(1)<CR>", "Move" },
   },
 }
+
+M.venv = {
+  plugin = true,
+  n = {
+    -- Keymap to open VenvSelector to pick a venv.
+    ["<localleader>vs"] = { "<cmd>VenvSelect<CR>", "Select Venv" },
+    -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+    ["<localleader>vc"] = { "<cmd>:VenvSelectCached<cr>", "Load previous venv" },
+  },
+}
+
+M.molten = {
+  plugin = true,
+  n = {
+    ["<leader>ip"] = {
+      function()
+        local venv = os.getenv("VIRTUAL_ENV")
+        if venv ~= nil then
+          -- in the form of /home/benlubas/.virtualenvs/VENV_NAME
+          venv = string.match(venv, "/.+/(.+)")
+          vim.cmd(("MoltenInit %s"):format(venv))
+        else
+          vim.cmd("MoltenInit")
+        end
+      end,
+      "Initialize Molten for python3",
+    },
+  },
+}
+
+-- local runner = require("quarto.runner")
+-- M.quarto = {
+--   plugin = true,
+--   n = {
+--     ["<localleader>rc"] = { runner.run_cell, "run cell", { silent = true } },
+--     ["<localleader>ra"] = {
+--       runner.run_above,
+--       "run cell and above",
+--       { silent = true },
+--     },
+--     ["<localleader>rA"] = { runner.run_all, "run all cells", { silent = true } },
+--     ["<localleader>rl"] = { runner.run_line, "run line", { silent = true } },
+--     ["<localleader>RA"] = {
+--       function()
+--         runner.run_all(true)
+--       end,
+--       "run all cells of all languages",
+--       { silent = true },
+--     },
+--   },
+--   v = {
+--     ["<localleader>r"] = { runner.run_range, "run visual range", { silent = true } },
+--   },
+-- }
 
 return M

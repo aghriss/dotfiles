@@ -27,6 +27,20 @@ function service(){
 		echo Undefined argument: $1
 	fi
 }
+function activate(){
+	if [[ $1 == "list" ]];	then
+        # echo -e $(ls -1h /env/venv)
+        ls -1h /env/venv
+	# elif [[ $1 == "" ]]; then
+		# echo Stopping $2 service
+		# sudo rc-service $2 stop
+	# elif [[ $1 == "restart" ]]; then
+		# echo Restarting $2 service
+		# sudo rc-service $2 restart
+	else
+		source /env/venv/$1/bin/activate
+	fi
+}
 
 # alias list_all_mods="find /lib/modules/6.1.28-gentoo-framework11 -type f -name '*.ko*'"
 # alias list_mods="cat /lib/modules/6.1.28-gentoo-framework11/modules.builtin"
@@ -60,5 +74,6 @@ export QT_IM_MODULE=ibus
 # Use `xim` in case some Electron apps (like Chromium) refuse to work with IBus
 # export GTK_IM_MODULE=xim
 # export QT_IM_MODULE=xim
-
 ibus-daemon -drx
+# avoid unkown xterm-kitty in ssh
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"

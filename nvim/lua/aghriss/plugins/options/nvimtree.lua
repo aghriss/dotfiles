@@ -49,8 +49,10 @@ local options = {
     },
   },
   renderer = {
-    root_folder_label = function(path) return vim.fn.fnamemodify(path, ":t") end,
-    highlight_git = false,
+    root_folder_label = function(path)
+      return vim.fn.fnamemodify(path, ":t")
+    end,
+    highlight_git = true,
     highlight_opened_files = "none",
 
     indent_markers = {
@@ -91,12 +93,14 @@ local options = {
     },
   },
 }
+
 local function wrap_node(f)
   return function(node, ...)
     node = node or require("nvim-tree.lib").get_node_at_cursor()
     f(node, ...)
   end
 end
+
 local change_cwd_to_node = wrap_node(function(node)
   if node.name == ".." then
     require("nvim-tree.actions.root.change-dir").fn("..")
@@ -116,7 +120,6 @@ end)
 
 options.on_attach = function(bufnr)
   local api = require("nvim-tree.api")
-
   local function opts(desc)
     return {
       desc = "nvim-tree: " .. desc,
@@ -139,12 +142,7 @@ options.on_attach = function(bufnr)
   -- vim.keymap.set("n", "e", api.node.navigate.sibling.prev, opts("Previous Sibling"
   vim.keymap.set("n", "o", api.tree.change_root_to_node, opts("set parent"))
   vim.keymap.set("n", "c", change_cwd_to_node, opts("CD"))
-  -- vim.keymap.set(
-  --   "n",
-  --   "<C-e>",
-  --   api.node.open.replace_tree_buffer,
-  --   opts("Open: In Place")
-  -- )
+  -- vim.keymap.set( "n", "<C-e>", api.node.open.replace_tree_buffer, opts("Open: In Place"))
   vim.keymap.set("n", "<C-e>", function(...)
     api.node.open.edit(...)
     api.tree.open(...)
@@ -203,11 +201,11 @@ options.on_attach = function(bufnr)
   vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
   -- vim.keymap.set("n", "R", api.tree.reload, opts("Refresh"))
   -- vim.keymap.set("n", "s", api.node.run.system, opts("Run System"))
-  vim.keymap.set("n", "/", api.tree.search_node, opts("Search"))
+  -- vim.keymap.set("n", "/", api.tree.search_node, opts("Search"))
   -- vim.keymap.set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Filter: Hidden"))
   -- vim.keymap.set("n", "W", api.tree.collapse_all, opts("Collapse"))
   vim.keymap.set("n", "x", api.fs.cut, opts("Cut"))
-  -- vim.keymap.set("n", "y", api.fs.copy.filename, opts("Copy Name"))
+  vim.keymap.set("n", "Y", api.fs.copy.filename, opts("Copy Name"))
   -- vim.keymap.set("n", "Y", api.fs.copy.relative_path, opts("Copy Relative Path"))
   -- vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
   -- vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))

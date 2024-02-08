@@ -1,15 +1,15 @@
 local M = {}
 M.ui = {
-	-- theme = "dark",
-	theme = "dark",
-	-- transparency = 1,
+  -- theme = "dark",
+  theme = "dark",
+  -- transparency = 1,
   theme_toggle = { "dark", "dark" },
   -- theme = "onedark", -- default theme
-	hl_override = {
-		-- ColorColumn = { bg = "#552266", sp = "none" },
-		-- Comment = { fg = "#cc9900"},
-		-- Visual = { bg = "#555500" }
-	},
+  hl_override = {
+    -- ColorColumn = { bg = "#552266", sp = "none" },
+    -- Comment = { fg = "#cc9900"},
+    -- Visual = { bg = "#555500" }
+  },
   ------------------------------- base46 -------------------------------------
   -- hl = highlights
   hl_add = {},
@@ -75,9 +75,6 @@ M.ui = {
     },
   },
 }
--- M.plugins = "aghriss.plugins"
 M.mappings = require("aghriss.mappings")
--- config for lazy.nvim startup options
--- M.lazy_nvim = require("aghriss.plugins.configs.lazy_nvim")
 
 return M

@@ -1,5 +1,6 @@
 return {
 	custom_themes_path = vim.fn.stdpath("config")
-		.. "/lua/aghriss/assets/base46",
+		.. "/assets/themes",
 	theme1 = "dark",
+  transparency = true,
 }

@@ -1,5 +1,23 @@
 return {
-	-- toggle_theme_icon = " ",
-  -- theme = "nvchad"
-  theme = "cat"
+  theme = "cat",
+  lazyload = true,
+  max_filename_len = 16,
+  show_parent = true,
+  filename_sep_l = "|",
+  filename_sep_r = "|",
+  show_tabs_toggle = true,
+  nvimtree_side = "left",
+  icons = {
+    tab_edge = { left = "", right = "" },
+    -- tab_edge = {left = " ", right= ""},
+    -- tab_edge = {left = "", right= ""},
+    -- tab_edge = { left = " ", right = "" },
+    etc = "󰇘",
+    modified = "",
+    default_file = "󰈚",
+    toggle_theme = " ",
+    -- path_fill = "",
+    -- path_fill = "",
+    -- path_fill = "",
+  },
 }
